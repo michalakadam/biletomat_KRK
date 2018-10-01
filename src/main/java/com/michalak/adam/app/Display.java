@@ -1,4 +1,5 @@
 package com.michalak.adam.app;
+import com.michalak.adam.helpers.NoPaperException;
 import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
@@ -14,9 +15,15 @@ public class Display {
         this.ticketsBought = new ArrayList<Ticket>();
     }
     //method that is going to display information for a client throughout the process
-    public void screen(Scanner keyboard){
-        while(!printer.checkPaper()) //information displayed until technician will refill the paper
-            System.out.println("Biletomat nie działa. Przepraszamy za utrudnienia.");
+    public void screen(Scanner keyboard) {
+        try {
+            checkForPaper();
+        }
+        catch (NoPaperException e) {
+            System.out.println("Biletomat nie działa.");
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
         System.out.println("        BILETOMAT KMK Kraków");
         initialScreen(keyboard);
         int decision;
@@ -26,6 +33,11 @@ public class Display {
                 initialScreen(keyboard);
         } while(decision == 1);
         screen(keyboard); //
+    }
+    public void checkForPaper() throws NoPaperException {
+        if(!printer.checkPaper()) { //information displayed until technician will refill the paper
+            throw new NoPaperException("Brak papieru. Przepraszamy za utrudnienia.");
+        }
     }
     private void initialScreen(Scanner keyboard){
         //this is obviously going to be a touch screen in real ticket machine but I will use numbers to make it work on computer

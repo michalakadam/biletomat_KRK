@@ -1,5 +1,6 @@
 package com.michalak.adam.app;
 
+import com.michalak.adam.helpers.NoPaperException;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Scanner;
@@ -14,10 +15,10 @@ public class DisplayTest {
     public void setUp(){
         display = new Display();
     }
-    @Test
-    public void screenNoPaper(){
+    @Test (expected = NoPaperException.class)
+    public void checkForPaper() throws NoPaperException{
         display.printer.renewPaperRoll(0);
-        display.screen(keyboard); //WARNING: INFINITE LOOP!
+        display.checkForPaper();
     }
 
 }
