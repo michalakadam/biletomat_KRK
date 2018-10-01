@@ -1,4 +1,4 @@
-package com.michalak.adam.app;
+package com.michalak.adam.helpers;
 
 public enum Ticket {
     TWENTYREDUCEDZONEI(20, 1.40, 1), TWENTYZONEI(20, 2.80, 1), FOURREDUCEDZONEI(40, 1.90, 1), FOURTYZONEI(40, 3.80, 1),
