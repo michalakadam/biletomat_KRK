@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Display {
-    private Printer printer;
+    protected Printer printer;
     private ArrayList<Ticket> ticketsBought;
 
     public Display() {
