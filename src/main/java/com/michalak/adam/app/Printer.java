@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class Printer {
     private int paperPieces;
+    final int MIN_PAPER = 0;
+    final int MAX_PAPER = 5000;
 
     //creates printer with random amount of paper available. Full paper roll contains 5000 pieces of paper.
     public Printer() {
@@ -24,6 +26,8 @@ public class Printer {
     }
     //when the paper roll is finished / running out staff can refill it
     public void renewPaperRoll(int paperPieces){
+        if (paperPieces < MIN_PAPER || paperPieces > MAX_PAPER)
+            throw new IllegalArgumentException("Invalid amount of paper");
         this.paperPieces =paperPieces;
     }
     public void printTicket(Ticket ticket){
