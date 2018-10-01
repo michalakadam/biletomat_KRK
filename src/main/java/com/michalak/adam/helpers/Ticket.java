@@ -29,7 +29,7 @@ public enum Ticket {
             out += this.validation + " minut";
         out += "\n  cena: ";
         out += this.price + "zł";
-        out += "\n+---------------------------+";
+        out += "\n+---------------------------+\n";
         return out;
     }
 

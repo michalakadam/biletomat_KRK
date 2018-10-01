@@ -15,20 +15,21 @@ public class Display {
     }
     //method that is going to display information for a client throughout the process
     public void screen(Scanner keyboard){
-            while(!printer.checkPaper()) //information displayed until technician will refill the paper
-                System.out.println("Biletomat nie działa. Przepraszamy za utrudnienia.");
-            initialScreen(keyboard);
-            int decision;
-            do {
-                decision = UserInputProvider.getInputFromUser(keyboard, "Czy chcesz kupić dodatkowe bilety? (1. tak/2. nie)", 1, 2);
-                if (decision == 1);
-                    initialScreen(keyboard);
-            } while(decision == 1);
+        while(!printer.checkPaper()) //information displayed until technician will refill the paper
+            System.out.println("Biletomat nie działa. Przepraszamy za utrudnienia.");
+        System.out.println("        BILETOMAT KMK Kraków");
+        initialScreen(keyboard);
+        int decision;
+        do {
+            decision = UserInputProvider.getInputFromUser(keyboard, "Czy chcesz kupić dodatkowe bilety? (1. tak/2. nie)", 1, 2);
+            if (decision == 1)
+                initialScreen(keyboard);
+        } while(decision == 1);
+        screen(keyboard); //
     }
     private void initialScreen(Scanner keyboard){
         //this is obviously going to be a touch screen in real ticket machine but I will use numbers to make it work on computer
         int decision;
-        System.out.println("BILETOMAT KMK Kraków");
         decision = UserInputProvider.getInputFromUser(keyboard, "1. Bilety czasowe I strefa miasto Kraków\n2. Bilety czasowe I + II aglomeracja", 1, 2);
         if (decision == 1)
             biletyMiasto(keyboard);
@@ -37,12 +38,14 @@ public class Display {
     }
     private void biletyMiasto(Scanner keyboard){
         int decision;
-        System.out.println("1. "+Ticket.TWENTYREDUCEDZONEI + "2. "+Ticket.TWENTYZONEI);
-        System.out.println("3. "+Ticket.FOURTYREDUCEDZONEI + "4. "+Ticket.FOURTYZONEI);
-        System.out.println("5. "+Ticket.SIXTYREDUCEDZONEI + "6. "+Ticket.SIXTYZONEI);
-        System.out.println("7. "+Ticket.NINETYREDUCEDZONEI + "8. "+Ticket.NINETYZONEI);
+        int quantity;
+        System.out.println("1. \n"+Ticket.TWENTYREDUCEDZONEI + "2. \n"+Ticket.TWENTYZONEI);
+        System.out.println("3. \n"+Ticket.FOURTYREDUCEDZONEI + "4. \n"+Ticket.FOURTYZONEI);
+        System.out.println("5. \n"+Ticket.SIXTYREDUCEDZONEI + "6. \n"+Ticket.SIXTYZONEI);
+        System.out.println("7. \n"+Ticket.NINETYREDUCEDZONEI + "8. \n"+Ticket.NINETYZONEI);
         decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 8);
-        for (int i = 1; i <= pickQuantity(keyboard); i++){
+        quantity = pickQuantity(keyboard);
+        for (int i = 1; i <= quantity; i++){
             if (decision == 1)
                 addTicketToShoppingList(Ticket.TWENTYREDUCEDZONEI);
             else if (decision == 2)
@@ -63,11 +66,13 @@ public class Display {
     }
     private void biletyAglomeracja(Scanner keyboard){
         int decision;
-        System.out.println("1. "+Ticket.RIDEREDUCEDZONEII + "2. "+Ticket.RIDEZONEII);
-        System.out.println("3. "+Ticket.SIXTYREDUCEDZONEII + "4. "+Ticket.SIXTYZONEII);
-        System.out.println("5. "+Ticket.NINETYREDUCEDZONEII + "6. "+Ticket.NINETYZONEII);
+        int quantity;
+        System.out.println("1. \n"+Ticket.RIDEREDUCEDZONEII + "2. \n"+Ticket.RIDEZONEII);
+        System.out.println("3. \n"+Ticket.SIXTYREDUCEDZONEII + "4. \n"+Ticket.SIXTYZONEII);
+        System.out.println("5. \n"+Ticket.NINETYREDUCEDZONEII + "6. \n"+Ticket.NINETYZONEII);
         decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 6);
-        for (int i = 1; i <= pickQuantity(keyboard); i++){
+        quantity = pickQuantity(keyboard);
+        for (int i = 1; i <= quantity; i++){
             if (decision == 1)
                 addTicketToShoppingList(Ticket.RIDEREDUCEDZONEII);
             else if (decision == 2)
@@ -84,7 +89,6 @@ public class Display {
     }
     private int pickQuantity(Scanner keyboard){
         int quantity;
-        System.out.println("Wybierz ilość biletów (1-9)");
         quantity = UserInputProvider.getInputFromUser(keyboard, "Wybierz ilość biletów (1-9)", 1, 9);
         //disables choosing more tickets than the machine is able to print
         if (ticketsBought.size() + quantity > printer.getPaperPieces()) {
