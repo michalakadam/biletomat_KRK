@@ -32,7 +32,14 @@ public enum Ticket {
         return out;
     }
 
+    public int getValidation(){
+        return this.validation;
+    }
     public double getPrice(){
         return this.price;
     }
+    public int getZone(){
+        return this.zone;
+    }
+
 }
