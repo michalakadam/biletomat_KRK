@@ -16,9 +16,11 @@ public class Display {
     }
     //method that is going to display information for a client throughout the process
     public void screen(Scanner keyboard) {
+        //first let's check if tickets can be printed on paper
         try {
             checkForPaper();
         }
+        //catch exception and wait for technician to refill the paper
         catch (NoPaperException e) {
             System.out.println("Biletomat nie działa.");
             System.out.println(e.getMessage());
