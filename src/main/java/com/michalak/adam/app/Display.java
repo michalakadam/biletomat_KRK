@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Display {
     protected Printer printer;
-    private ArrayList<Ticket> ticketsBought;
+    protected ArrayList<Ticket> ticketsBought;
 
     public Display() {
         this.printer = new Printer();
@@ -118,5 +118,15 @@ public class Display {
     }
     private void addTicketToShoppingList(Ticket ticket){
         ticketsBought.add(ticket);
+    }
+    public double ticketShoppingListValue(){
+        double sum = 0;
+        for (int i = 0; i < ticketsBought.size(); i++){
+            sum += ticketsBought.get(i).getPrice();
+        }
+        return sum;
+    }
+    public ArrayList<Ticket> getTicketsBought() {
+        return ticketsBought;
     }
 }
