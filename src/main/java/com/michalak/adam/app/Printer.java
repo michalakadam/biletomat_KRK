@@ -3,6 +3,10 @@ import com.michalak.adam.helpers.Ticket;
 
 import java.util.Random;
 
+/**
+ * This class imitates hardware printer component.
+ */
+
 public class Printer {
     private int paperPieces;
     final int MIN_PAPER = 0;

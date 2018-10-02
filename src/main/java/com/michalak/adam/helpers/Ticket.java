@@ -1,5 +1,12 @@
 package com.michalak.adam.helpers;
 
+/**
+ * This enum contains all tickets available for sale. Those are official public transportation tickets taken from:
+ * http://www.mpk.krakow.pl/pl/bilety2/rodzaje-biletow/
+ * Not all tickets are available for the project's simplicity sake.
+ * Tickets have different validation and price. They can be reduced or normal and can grant permission to travel
+ * to further suburbs (zone II).
+ */
 public enum Ticket {
     TWENTYREDUCEDZONEI(20, 1.40, 1), TWENTYZONEI(20, 2.80, 1), FOURTYREDUCEDZONEI(40, 1.90, 1), FOURTYZONEI(40, 3.80, 1),
     SIXTYREDUCEDZONEI(60, 2.50, 1), SIXTYZONEI(60, 5.00, 1), NINETYREDUCEDZONEI(90, 3.00, 1),

@@ -6,6 +6,11 @@ import com.michalak.adam.helpers.UserInputProvider;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Display is a way of communicating with the customer. It shows screens with available tickets, communicates
+ * possible limitations (running out of paper, no change) and tells how much customer should pay.
+ */
+
 public class Display {
     protected Printer printer;
     private ArrayList<Ticket> ticketsBought;
