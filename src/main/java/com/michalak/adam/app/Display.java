@@ -42,6 +42,7 @@ public class Display {
                 initialScreen(keyboard);
         } while (decision == 1);
         orderSummary();
+        transactionConclusion();
         flowController(keyboard); //
     }
 
@@ -129,5 +130,9 @@ public class Display {
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "bilet" : "bilety")+".");
         System.out.println("Do zapłaty: "+shoppingCart.getTicketsValue()+"zł");
+    }
+    private void transactionConclusion(){
+        System.out.println("Dziękujemy za skorzystanie z komunikacji miejskiej.");
+        shoppingCart.clearShoppingCart();
     }
 }
