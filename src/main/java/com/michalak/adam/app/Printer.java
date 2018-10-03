@@ -1,4 +1,5 @@
 package com.michalak.adam.app;
+import com.michalak.adam.helpers.NoPaperException;
 import com.michalak.adam.helpers.Ticket;
 
 import java.util.Random;
@@ -21,7 +22,7 @@ public class Printer {
     //method used after the ticket was printed to check if the next ticket can be printed
     public boolean checkPaper() {
         if (paperPieces == 0)
-            return false;
+            throw new NoPaperException("Biletomat nie działa. Przepraszamy za utrudnienia.");
         return true;
     }
 

@@ -1,5 +1,6 @@
 package com.michalak.adam.app;
 
+import com.michalak.adam.helpers.NoPaperException;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -14,12 +15,18 @@ public class PrinterTest {
     }
 
     @Test
-    public void checkPaper() {
-        if (printer.getPaperPieces() == 0)
-            System.out.println("Reason for this failure is that printer was randomly generated with 0 paper pieces");
+    public void checkPaperIsThere() {
+        //when
+        printer.renewPaperRoll(1);
+        //then
         assertTrue(printer.checkPaper());
+    }
+    @Test (expected = NoPaperException.class)
+    public void checkPaperIsGone(){
+        //when
         printer.renewPaperRoll(0);
-        assertFalse(printer.checkPaper());
+        //then
+        printer.checkPaper();
     }
 
     @Test

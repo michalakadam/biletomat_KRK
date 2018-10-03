@@ -3,7 +3,6 @@ package com.michalak.adam.helpers;
 import org.junit.Test;
 
 public class CoinTest {
-    private Coin coin;
 
     @Test
     public void printTest() {

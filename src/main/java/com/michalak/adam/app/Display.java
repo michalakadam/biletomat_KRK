@@ -1,5 +1,4 @@
 package com.michalak.adam.app;
-import com.michalak.adam.helpers.NoPaperException;
 import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
@@ -23,15 +22,7 @@ public class Display {
     //method that is going to display information for a client throughout the process
     protected void flowController(Scanner keyboard) {
         //first let's check if tickets can be printed on paper
-        try {
-            checkForPaper();
-        }
-        //catch exception and wait for technician to refill the paper
-        catch (NoPaperException e) {
-            System.out.println("Biletomat nie działa.");
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
+        printer.checkPaper();
         System.out.println("        BILETOMAT KMK Kraków");
         initialScreen(keyboard);
         int decision;
@@ -44,12 +35,6 @@ public class Display {
         orderSummary();
         transactionConclusion();
         flowController(keyboard); //
-    }
-
-    protected void checkForPaper() throws NoPaperException {
-        if (!printer.checkPaper()) { //information displayed until technician will refill the paper
-            throw new NoPaperException("Brak papieru. Przepraszamy za utrudnienia.");
-        }
     }
 
     private void initialScreen(Scanner keyboard) {
@@ -125,12 +110,14 @@ public class Display {
         }
         return quantity;
     }
+
     private void orderSummary(){
         System.out.println("W twoim koszyku "+
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "bilet" : "bilety")+".");
         System.out.println("Do zapłaty: "+shoppingCart.getTicketsValue()+"zł");
     }
+
     private void transactionConclusion(){
         System.out.println("Dziękujemy za skorzystanie z komunikacji miejskiej.");
         shoppingCart.clearShoppingCart();
