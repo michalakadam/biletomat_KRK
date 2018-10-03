@@ -16,6 +16,7 @@ public class ShoppingCart {
     }
    public void addTicketToCart(Ticket ticket){
         ticketsBought.add(ticket);
+        //increase cart value at the same time
         addTicketValue(ticket);
    }
    private void addTicketValue(Ticket ticket){
@@ -23,6 +24,9 @@ public class ShoppingCart {
    }
    public double getTicketsValue() {
        return ticketsValue;
+   }
+   public int getTicketsQuantity() {
+        return ticketsBought.size();
    }
 }
 
