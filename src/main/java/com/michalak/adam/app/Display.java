@@ -4,7 +4,7 @@ import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
 import java.util.Scanner;
-import java.util.ArrayList;
+
 
 /**
  * Display is a way of communicating with the customer. It shows screens with available tickets, communicates
@@ -21,7 +21,7 @@ public class Display {
     }
 
     //method that is going to display information for a client throughout the process
-    public void screen(Scanner keyboard) {
+    protected void flowController(Scanner keyboard) {
         //first let's check if tickets can be printed on paper
         try {
             checkForPaper();
@@ -36,14 +36,16 @@ public class Display {
         initialScreen(keyboard);
         int decision;
         do {
+            orderSummary();
             decision = UserInputProvider.getInputFromUser(keyboard, "Czy chcesz kupić dodatkowe bilety? (1. tak/2. nie)", 1, 2);
             if (decision == 1)
                 initialScreen(keyboard);
         } while (decision == 1);
-        screen(keyboard); //
+        orderSummary();
+        flowController(keyboard); //
     }
 
-    public void checkForPaper() throws NoPaperException {
+    protected void checkForPaper() throws NoPaperException {
         if (!printer.checkPaper()) { //information displayed until technician will refill the paper
             throw new NoPaperException("Brak papieru. Przepraszamy za utrudnienia.");
         }
@@ -121,5 +123,11 @@ public class Display {
             pickQuantity(keyboard);
         }
         return quantity;
+    }
+    private void orderSummary(){
+        System.out.println("W twoim koszyku "+
+                (shoppingCart.getTicketsQuantity()%2 == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
+                (shoppingCart.getTicketsQuantity()%2 == 1 ? "bilet" : "bilety")+".");
+        System.out.println("Do zapłaty: "+shoppingCart.getTicketsValue()+"zł");
     }
 }

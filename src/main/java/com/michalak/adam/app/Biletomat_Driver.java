@@ -5,6 +5,6 @@ public class Biletomat_Driver {
     public static void main(String[] args){
         Scanner keyboard = new Scanner(System.in);
         Display display = new Display();
-        display.screen(keyboard);
+        display.flowController(keyboard);
     }
 }

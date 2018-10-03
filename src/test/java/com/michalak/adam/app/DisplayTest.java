@@ -25,16 +25,4 @@ public class DisplayTest {
         //then
         display.checkForPaper();
     }
-    @Test
-    public void emptyListValue(){
-        assertEquals(0, display.ticketShoppingListValue(), 1e-10);
-    }
-    @Test
-    public void shoppingListValue(){
-        //when
-        display.ticketsBought.add(Ticket.SIXTYZONEI);
-        //then
-        assertEquals(5.0, display.ticketShoppingListValue(), 1e-10);
-    }
-
 }
