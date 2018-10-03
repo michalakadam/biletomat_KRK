@@ -28,5 +28,9 @@ public class ShoppingCart {
    public int getTicketsQuantity() {
         return ticketsBought.size();
    }
+   public void clearShoppingCart(){
+        ticketsBought.clear();
+        ticketsValue = 0;
+   }
 }
 

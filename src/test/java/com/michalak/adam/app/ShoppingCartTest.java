@@ -39,4 +39,12 @@ public class ShoppingCartTest {
         //then
         assertEquals(2, shoppingCart.getTicketsQuantity());
     }
+    @Test
+    public void clearShoppingCart(){
+        //when
+        shoppingCart.addTicketToCart(Ticket.SIXTYZONEI);
+        shoppingCart.clearShoppingCart();
+        //then
+        assertEquals(0, shoppingCart.getTicketsValue(), 1e-10);
+    }
 }
