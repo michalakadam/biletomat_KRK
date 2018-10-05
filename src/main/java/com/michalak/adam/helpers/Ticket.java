@@ -4,15 +4,15 @@ package com.michalak.adam.helpers;
  * This enum contains all tickets available for sale. Those are official public transportation tickets taken from:
  * http://www.mpk.krakow.pl/pl/bilety2/rodzaje-biletow/
  * Not all tickets are available for the project's simplicity sake.
- * Tickets have different validation and price. They can be reduced or normal and can grant permission to travel
- * to further suburbs (zone II).
+ * Tickets have different validation and price. They can be reduced or normal ("ulgowy" or "normalny"
+ * and can grant permission to travel to further suburbs (zone II).
  */
 public enum Ticket {
-    TWENTYREDUCEDZONEI(20, 1.40, 1), TWENTYZONEI(20, 2.80, 1), FOURTYREDUCEDZONEI(40, 1.90, 1), FOURTYZONEI(40, 3.80, 1),
-    SIXTYREDUCEDZONEI(60, 2.50, 1), SIXTYZONEI(60, 5.00, 1), NINETYREDUCEDZONEI(90, 3.00, 1),
-    NINETYZONEI(90, 6.00, 1), RIDEREDUCEDZONEII(1, 2.00, 2), RIDEZONEII(1, 4.00, 2),
-    SIXTYREDUCEDZONEII(60, 2.50, 2), SIXTYZONEII(60, 5.00, 2), NINETYREDUCEDZONEII(90, 3.00, 2),
-    NINETYZONEII(90, 6.00, 2);
+    TWENTYREDUCEDZONEI(20, 1.40, 1), TWENTYZONEI(20, 2.80, 1), FOURTYREDUCEDZONEI(40, 1.90, 1),
+    FOURTYZONEI(40, 3.80, 1), SIXTYREDUCEDZONEI(60, 2.50, 1), SIXTYZONEI(60, 5.00, 1),
+    NINETYREDUCEDZONEI(90, 3.00, 1), NINETYZONEI(90, 6.00, 1), RIDEREDUCEDZONEII(1, 2.00, 2),
+    RIDEZONEII(1, 4.00, 2), SIXTYREDUCEDZONEII(60, 2.50, 2), SIXTYZONEII(60, 5.00, 2),
+    NINETYREDUCEDZONEII(90, 3.00, 2), NINETYZONEII(90, 6.00, 2);
 
     private int validation;
     private double price;//in polish zlotych
@@ -34,6 +34,8 @@ public enum Ticket {
             out += this.validation + " minut lub 1-przejazdowy";
         else
             out += this.validation + " minut";
+        out += "\n  ";
+        out += this.checkReduction();
         out += "\n  cena: ";
         out += this.price + "zł";
         out += "\n+---------------------------+\n";
@@ -48,6 +50,22 @@ public enum Ticket {
     }
     public int getZone(){
         return this.zone;
+    }
+
+    /**
+     * method for comparing floating point numbers
+     * @param thatPrice is a price that Ticket price is compared to
+     * @return true if difference between compared numbers is less than 1e-10
+     */
+    public boolean isNear(double thatPrice){
+        return Math.abs(this.price - thatPrice) < 1e-10;
+    }
+
+    public String checkReduction(){
+        if (this.isNear(2.80) || this.isNear(3.80) || this.isNear(4.0) || this.isNear(5.0) || this.isNear(6.0) )
+            return "NORMALNY";
+        else
+            return "ULGOWY";
     }
 
 }
