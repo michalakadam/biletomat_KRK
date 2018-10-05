@@ -32,5 +32,8 @@ public class ShoppingCart {
         ticketsBought.clear();
         ticketsValue = 0;
    }
+   public ArrayList<Ticket> getTicketsBought(){
+        return ticketsBought;
+   }
 }
 

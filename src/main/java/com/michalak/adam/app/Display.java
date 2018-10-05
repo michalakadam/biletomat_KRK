@@ -35,10 +35,13 @@ public class Display {
             if (decision == 1)
                 initialScreen(keyboard);
         } while (decision == 1);
-        orderSummary();
-        collectMoney(keyboard);
+        while(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown() > 0) {
+            collectMoney(keyboard);
+        }
+        for(int i = 0; i < shoppingCart.getTicketsQuantity(); i++)
+            printer.printTicket(shoppingCart.getTicketsBought().get(i));
         transactionConclusion();
-        flowController(keyboard); //
+        flowController(keyboard); //Ticket machine begins another transaction
     }
 
     private void initialScreen(Scanner keyboard) {
@@ -104,12 +107,12 @@ public class Display {
     private void orderSummary(){
         System.out.println("W twoim koszyku "+
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
-                (shoppingCart.getTicketsQuantity()%2 == 1 ? "bilet" : "bilety")+".");
+                (shoppingCart.getTicketsQuantity()%2 == 1 ? " bilet" : " bilety")+".");
     }
 
     private void collectMoney(Scanner keyboard){
         int decision;
-        System.out.println("Do zapłaty: "+shoppingCart.getTicketsValue()+"zł");
+        System.out.println("Do zapłaty: "+roundDouble(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown())+"zł");
         //In real life situation customer is just going to throw coins from the wallet
         System.out.println("1. 5zł \t2. 2zł");
         System.out.println("3. 1zł \t4. 50gr");
@@ -126,5 +129,12 @@ public class Display {
     private void transactionConclusion(){
         System.out.println("Dziękujemy za skorzystanie z komunikacji miejskiej.");
         shoppingCart.clearShoppingCart();
+    }
+    private double roundDouble(double value){
+        value *= 100;
+        value = Math.round(value);
+        value = value / 100;
+        return value;
+
     }
 }

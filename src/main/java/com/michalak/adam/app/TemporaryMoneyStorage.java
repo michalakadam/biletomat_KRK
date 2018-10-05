@@ -12,20 +12,23 @@ import java.util.ArrayList;
  */
 public class TemporaryMoneyStorage {
     private ArrayList<Coin> coinsThrown;
+    private double valueOfCoinsThrown;
 
     public TemporaryMoneyStorage(){
         this.coinsThrown = new ArrayList<Coin>();
+        valueOfCoinsThrown = 0;
     }
 
     public void addCoin(Coin coin){
         coinsThrown.add(coin);
-        valueOfMoneyThrown();
+        valueOfCoinsThrown += coin.getValue();
     }
 
-    public double valueOfMoneyThrown(){
-        double sum = 0;
-        for (int i = 0; i < coinsThrown.size(); i++)
-            sum += coinsThrown.get(i).getValue();
-        return sum;
+    public double getValueOfCoinsThrown(){
+        return valueOfCoinsThrown;
     }
+
+
+
+
 }
