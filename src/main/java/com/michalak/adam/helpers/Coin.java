@@ -15,4 +15,7 @@ public enum Coin {
     public String toString(){
         return value > 0.9 ? value + "zł" : value*100 + "gr";
     }
+    public double getValue(){
+        return this.value;
+    }
 }

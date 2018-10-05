@@ -1,4 +1,5 @@
 package com.michalak.adam.app;
+import com.michalak.adam.helpers.Coin;
 import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
@@ -6,17 +7,19 @@ import java.util.Scanner;
 
 
 /**
- * Display is a way of communicating with the customer. It shows screens with available tickets, communicates
+ * Display is a way of communicating with the customer. It shows screens with available tickets, warns about
  * possible limitations (running out of paper, no change) and tells how much customer should pay.
  */
 
 public class Display {
     protected Printer printer;
     private ShoppingCart shoppingCart;
+    private TemporaryMoneyStorage temporaryMoneyStorage;
 
     public Display() {
         this.printer = new Printer();
         this.shoppingCart = new ShoppingCart();
+        this.temporaryMoneyStorage = new TemporaryMoneyStorage();
     }
 
     //method that is going to display information for a client throughout the process
@@ -33,6 +36,7 @@ public class Display {
                 initialScreen(keyboard);
         } while (decision == 1);
         orderSummary();
+        collectMoney(keyboard);
         transactionConclusion();
         flowController(keyboard); //
     }
@@ -57,22 +61,14 @@ public class Display {
         decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 8);
         quantity = pickQuantity(keyboard);
         for (int i = 1; i <= quantity; i++) {
-            if (decision == 1)
-                shoppingCart.addTicketToCart(Ticket.TWENTYREDUCEDZONEI);
-            else if (decision == 2)
-                shoppingCart.addTicketToCart(Ticket.TWENTYZONEI);
-            else if (decision == 3)
-                shoppingCart.addTicketToCart(Ticket.FOURTYREDUCEDZONEI);
-            else if (decision == 4)
-                shoppingCart.addTicketToCart(Ticket.FOURTYZONEI);
-            else if (decision == 5)
-                shoppingCart.addTicketToCart(Ticket.SIXTYREDUCEDZONEI);
-            else if (decision == 6)
-                shoppingCart.addTicketToCart(Ticket.SIXTYZONEI);
-            else if (decision == 7)
-                shoppingCart.addTicketToCart(Ticket.NINETYREDUCEDZONEI);
-            else if (decision == 8)
-                shoppingCart.addTicketToCart(Ticket.NINETYZONEI);
+            if (decision == 1) shoppingCart.addTicketToCart(Ticket.TWENTYREDUCEDZONEI);
+            else if (decision == 2) shoppingCart.addTicketToCart(Ticket.TWENTYZONEI);
+            else if (decision == 3) shoppingCart.addTicketToCart(Ticket.FOURTYREDUCEDZONEI);
+            else if (decision == 4) shoppingCart.addTicketToCart(Ticket.FOURTYZONEI);
+            else if (decision == 5) shoppingCart.addTicketToCart(Ticket.SIXTYREDUCEDZONEI);
+            else if (decision == 6) shoppingCart.addTicketToCart(Ticket.SIXTYZONEI);
+            else if (decision == 7) shoppingCart.addTicketToCart(Ticket.NINETYREDUCEDZONEI);
+            else if (decision == 8) shoppingCart.addTicketToCart(Ticket.NINETYZONEI);
         }
     }
 
@@ -85,18 +81,12 @@ public class Display {
         decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 6);
         quantity = pickQuantity(keyboard);
         for (int i = 1; i <= quantity; i++) {
-            if (decision == 1)
-                shoppingCart.addTicketToCart(Ticket.RIDEREDUCEDZONEII);
-            else if (decision == 2)
-                shoppingCart.addTicketToCart(Ticket.RIDEZONEII);
-            else if (decision == 3)
-                shoppingCart.addTicketToCart(Ticket.SIXTYREDUCEDZONEII);
-            else if (decision == 4)
-                shoppingCart.addTicketToCart(Ticket.SIXTYZONEII);
-            else if (decision == 5)
-                shoppingCart.addTicketToCart(Ticket.NINETYREDUCEDZONEII);
-            else if (decision == 6)
-                shoppingCart.addTicketToCart(Ticket.NINETYZONEII);
+            if (decision == 1) shoppingCart.addTicketToCart(Ticket.RIDEREDUCEDZONEII);
+            else if (decision == 2) shoppingCart.addTicketToCart(Ticket.RIDEZONEII);
+            else if (decision == 3) shoppingCart.addTicketToCart(Ticket.SIXTYREDUCEDZONEII);
+            else if (decision == 4) shoppingCart.addTicketToCart(Ticket.SIXTYZONEII);
+            else if (decision == 5) shoppingCart.addTicketToCart(Ticket.NINETYREDUCEDZONEII);
+            else if (decision == 6) shoppingCart.addTicketToCart(Ticket.NINETYZONEII);
         }
     }
 
@@ -115,7 +105,22 @@ public class Display {
         System.out.println("W twoim koszyku "+
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "bilet" : "bilety")+".");
+    }
+
+    private void collectMoney(Scanner keyboard){
+        int decision;
         System.out.println("Do zapłaty: "+shoppingCart.getTicketsValue()+"zł");
+        //In real life situation customer is just going to throw coins from the wallet
+        System.out.println("1. 5zł \t2. 2zł");
+        System.out.println("3. 1zł \t4. 50gr");
+        System.out.println("5. 20gr\t6. 10gr");
+        decision = UserInputProvider.getInputFromUser(keyboard, "Wrzuć monetę", 1, 6);
+        if(decision == 1) temporaryMoneyStorage.addCoin(Coin.FIVE);
+        else if(decision == 2) temporaryMoneyStorage.addCoin(Coin.TWO);
+        else if(decision == 3) temporaryMoneyStorage.addCoin(Coin.ONE);
+        else if(decision == 4) temporaryMoneyStorage.addCoin(Coin.POINTFIFTY);
+        else if(decision == 5) temporaryMoneyStorage.addCoin(Coin.POINTTWENTY);
+        else if(decision == 6) temporaryMoneyStorage.addCoin(Coin.POINTTEN);
     }
 
     private void transactionConclusion(){
