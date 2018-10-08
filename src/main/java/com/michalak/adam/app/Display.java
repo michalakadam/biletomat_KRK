@@ -95,9 +95,16 @@ public class Display {
         return quantity;
     }
     private void abandonTransaction(Scanner keyboard){
+        giveCoinsBack();
         temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
         flowController(keyboard);
+    }
+    private void giveCoinsBack(){
+        for(int i = 0; i < temporaryMoneyStorage.getAmountOfCoinsThrown(); i++) {
+            //in real life situation real coins are given back to the customer
+            System.out.println(temporaryMoneyStorage.getCoinsThrown().get(i));
+        }
     }
     private void orderSummary(){
         System.out.println("W twoim koszyku "+

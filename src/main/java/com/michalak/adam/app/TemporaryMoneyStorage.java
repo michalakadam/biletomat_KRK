@@ -37,6 +37,9 @@ public class TemporaryMoneyStorage {
     public ArrayList<Coin> getCoinsThrown(){
         return coinsThrown;
     }
+    public int getAmountOfCoinsThrown(){
+        return coinsThrown.size();
+    }
     public void clearTemporaryStorage(){
         coinsThrown.clear();
     }
