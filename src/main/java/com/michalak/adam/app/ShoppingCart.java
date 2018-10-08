@@ -14,7 +14,30 @@ public class ShoppingCart {
         ticketsBought = new ArrayList<Ticket>();
         ticketsValue = 0;
     }
-   public void addTicketToCart(Ticket ticket){
+
+    public void addBiletyMiastoToCart(int decision, int quantity){
+        for (int i = 1; i <= quantity; i++) {
+            if (decision == 1) addTicketToCart(Ticket.TWENTYREDUCEDZONEI);
+            else if (decision == 2) addTicketToCart(Ticket.TWENTYZONEI);
+            else if (decision == 3) addTicketToCart(Ticket.FOURTYREDUCEDZONEI);
+            else if (decision == 4) addTicketToCart(Ticket.FOURTYZONEI);
+            else if (decision == 5) addTicketToCart(Ticket.SIXTYREDUCEDZONEI);
+            else if (decision == 6) addTicketToCart(Ticket.SIXTYZONEI);
+            else if (decision == 7) addTicketToCart(Ticket.NINETYREDUCEDZONEI);
+            else if (decision == 8) addTicketToCart(Ticket.NINETYZONEI);
+        }
+    }
+    public void addBiletyAglomeracjaToCart(int decision, int quantity){
+        for (int i = 1; i <= quantity; i++) {
+            if (decision == 1) addTicketToCart(Ticket.RIDEREDUCEDZONEII);
+            else if (decision == 2) addTicketToCart(Ticket.RIDEZONEII);
+            else if (decision == 3) addTicketToCart(Ticket.SIXTYREDUCEDZONEII);
+            else if (decision == 4) addTicketToCart(Ticket.SIXTYZONEII);
+            else if (decision == 5) addTicketToCart(Ticket.NINETYREDUCEDZONEII);
+            else if (decision == 6) addTicketToCart(Ticket.NINETYZONEII);
+        }
+    }
+   private void addTicketToCart(Ticket ticket){
         ticketsBought.add(ticket);
         //increase cart value at the same time
         addTicketValue(ticket);
@@ -34,28 +57,6 @@ public class ShoppingCart {
    }
    public ArrayList<Ticket> getTicketsBought(){
         return ticketsBought;
-   }
-   public void addBiletyMiastoToCart(int decision, int quantity){
-       for (int i = 1; i <= quantity; i++) {
-           if (decision == 1) addTicketToCart(Ticket.TWENTYREDUCEDZONEI);
-           else if (decision == 2) addTicketToCart(Ticket.TWENTYZONEI);
-           else if (decision == 3) addTicketToCart(Ticket.FOURTYREDUCEDZONEI);
-           else if (decision == 4) addTicketToCart(Ticket.FOURTYZONEI);
-           else if (decision == 5) addTicketToCart(Ticket.SIXTYREDUCEDZONEI);
-           else if (decision == 6) addTicketToCart(Ticket.SIXTYZONEI);
-           else if (decision == 7) addTicketToCart(Ticket.NINETYREDUCEDZONEI);
-           else if (decision == 8) addTicketToCart(Ticket.NINETYZONEI);
-       }
-   }
-   public void addBiletyAglomeracjaToCart(int decision, int quantity){
-       for (int i = 1; i <= quantity; i++) {
-           if (decision == 1) addTicketToCart(Ticket.RIDEREDUCEDZONEII);
-           else if (decision == 2) addTicketToCart(Ticket.RIDEZONEII);
-           else if (decision == 3) addTicketToCart(Ticket.SIXTYREDUCEDZONEII);
-           else if (decision == 4) addTicketToCart(Ticket.SIXTYZONEII);
-           else if (decision == 5) addTicketToCart(Ticket.NINETYREDUCEDZONEII);
-           else if (decision == 6) addTicketToCart(Ticket.NINETYZONEII);
-       }
    }
 }
 
