@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 
 public class Display {
-    protected Printer printer;
+    private Printer printer;
     private ShoppingCart shoppingCart;
     private TemporaryMoneyStorage temporaryMoneyStorage;
 
@@ -100,6 +100,7 @@ public class Display {
     }
     private void transactionConclusion(){
         System.out.println("Dziękujemy za skorzystanie z komunikacji miejskiej.");
+        temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
     }
     private double roundDouble(double value){
