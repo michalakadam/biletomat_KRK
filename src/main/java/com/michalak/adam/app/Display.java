@@ -1,4 +1,5 @@
 package com.michalak.adam.app;
+import com.michalak.adam.helpers.DoubleRounder;
 import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
@@ -114,7 +115,8 @@ public class Display {
     }
     private void collectMoney(Scanner keyboard){
         int decision;
-        System.out.println("Do zapłaty: "+roundDouble(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown())+"zł");
+        System.out.println("Do zapłaty: "+
+                DoubleRounder.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2)+"zł");
         //In real life situation customer is just going to throw coins from the wallet
         System.out.println("1. 5zł \t2. 2zł");
         System.out.println("3. 1zł \t4. 50gr");
@@ -129,11 +131,5 @@ public class Display {
         System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej.");
         temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
-    }
-    private double roundDouble(double value){
-        value *= 100;
-        value = Math.round(value);
-        value = value / 100;
-        return value;
     }
 }
