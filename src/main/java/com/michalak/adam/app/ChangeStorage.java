@@ -23,10 +23,54 @@ public class ChangeStorage {
             coins.set(i, randomGenerator.nextInt(101));
         }
     }
-
+    public ArrayList<Coin> giveChange(double difference){
+        ArrayList<Coin> change = new ArrayList<Coin>();
+        while(difference > 0) {
+            if (difference % 2.0 >= 0.95) {
+                change.add(Coin.TWO);
+                removeCoin(Coin.TWO);
+                difference -= Coin.TWO.getValue();
+            }
+            else if (difference % 1.0 >= 0.95) {
+                change.add(Coin.ONE);
+                removeCoin(Coin.ONE);
+                difference -= Coin.ONE.getValue();
+            }
+            else if (difference % 0.5 >= 0.95) {
+                change.add(Coin.POINTFIFTY);
+                removeCoin(Coin.POINTFIFTY);
+                difference -= Coin.POINTFIFTY.getValue();
+            }
+            else if (difference % 0.2 >= 0.95) {
+                change.add(Coin.POINTTWENTY);
+                removeCoin(Coin.POINTTWENTY);
+                difference -= Coin.POINTTWENTY.getValue();
+            }
+            else if (difference % 0.1 >= 0.95) {
+                change.add(Coin.POINTTEN);
+                removeCoin(Coin.POINTTEN);
+                difference -= Coin.POINTTEN.getValue();
+            }
+        }
+        return change;
+    }
+    public void removeCoin(Coin coin){
+        //difference will never be greater or equal to five
+        if(coin.equals(Coin.TWO))
+            coins.set(1, coins.get(1) - 1);
+        else if(coin.equals(Coin.ONE))
+            coins.set(2, coins.get(2) - 1);
+        else if(coin.equals(Coin.POINTFIFTY))
+            coins.set(3, coins.get(3) - 1);
+        else if(coin.equals(Coin.POINTTWENTY))
+            coins.set(4, coins.get(4) - 1);
+        else if(coin.equals(Coin.POINTTEN))
+            coins.set(5, coins.get(5) - 1);
+    }
     public void addCoin(Coin coin){
-        if(coin.equals(Coin.FIVE) && checkPlaceForAnotherCoin(0))
-            coins.set(0, coins.get(0) + 1);
+        //difference will never be greater or equal to five
+        if(coin.equals(Coin.FIVE))
+            bank.add(coin);
         else if(coin.equals(Coin.TWO) && checkPlaceForAnotherCoin(1))
             coins.set(1, coins.get(1) + 1);
         else if(coin.equals(Coin.ONE) && checkPlaceForAnotherCoin(2))
