@@ -43,7 +43,6 @@ public class Display {
         transactionConclusion();
         flowController(keyboard); //Ticket machine begins another transaction
     }
-
     private void initialScreen(Scanner keyboard) {
         //this is obviously going to be a touch screen in real ticket machine but I will use numbers to make it work on computer
         int decision;
@@ -53,7 +52,6 @@ public class Display {
         else if (decision == 2)
             biletyAglomeracja(keyboard);
     }
-
     private void biletyMiasto(Scanner keyboard) {
         int decision;
         int quantity;
@@ -65,7 +63,6 @@ public class Display {
         quantity = pickQuantity(keyboard);
         shoppingCart.addBiletyMiastoToCart(decision, quantity);
     }
-
     private void biletyAglomeracja(Scanner keyboard) {
         int decision;
         int quantity;
@@ -76,7 +73,6 @@ public class Display {
         quantity = pickQuantity(keyboard);
         shoppingCart.addBiletyAglomeracjaToCart(decision, quantity);
     }
-
     private int pickQuantity(Scanner keyboard) {
         int quantity;
         quantity = UserInputProvider.getInputFromUser(keyboard, "Wybierz ilość biletów (1-9)", 1, 9);
@@ -87,13 +83,11 @@ public class Display {
         }
         return quantity;
     }
-
     private void orderSummary(){
         System.out.println("W twoim koszyku "+
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
                 (shoppingCart.getTicketsQuantity()%2 == 1 ? " bilet" : " bilety")+".");
     }
-
     private void collectMoney(Scanner keyboard){
         int decision;
         System.out.println("Do zapłaty: "+roundDouble(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown())+"zł");
@@ -102,14 +96,8 @@ public class Display {
         System.out.println("3. 1zł \t4. 50gr");
         System.out.println("5. 20gr\t6. 10gr");
         decision = UserInputProvider.getInputFromUser(keyboard, "Wrzuć monetę", 1, 6);
-        if(decision == 1) temporaryMoneyStorage.addCoin(Coin.FIVE);
-        else if(decision == 2) temporaryMoneyStorage.addCoin(Coin.TWO);
-        else if(decision == 3) temporaryMoneyStorage.addCoin(Coin.ONE);
-        else if(decision == 4) temporaryMoneyStorage.addCoin(Coin.POINTFIFTY);
-        else if(decision == 5) temporaryMoneyStorage.addCoin(Coin.POINTTWENTY);
-        else if(decision == 6) temporaryMoneyStorage.addCoin(Coin.POINTTEN);
+        temporaryMoneyStorage.addCoinToMoneyStorage(decision);
     }
-
     private void transactionConclusion(){
         System.out.println("Dziękujemy za skorzystanie z komunikacji miejskiej.");
         shoppingCart.clearShoppingCart();
@@ -119,6 +107,5 @@ public class Display {
         value = Math.round(value);
         value = value / 100;
         return value;
-
     }
 }

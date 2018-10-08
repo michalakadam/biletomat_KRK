@@ -19,16 +19,19 @@ public class TemporaryMoneyStorage {
         valueOfCoinsThrown = 0;
     }
 
-    public void addCoin(Coin coin){
+    public void addCoinToMoneyStorage(int decision) {
+        if(decision == 1) addCoin(Coin.FIVE);
+        else if(decision == 2) addCoin(Coin.TWO);
+        else if(decision == 3) addCoin(Coin.ONE);
+        else if(decision == 4) addCoin(Coin.POINTFIFTY);
+        else if(decision == 5) addCoin(Coin.POINTTWENTY);
+        else if(decision == 6) addCoin(Coin.POINTTEN);
+    }
+    private void addCoin(Coin coin){
         coinsThrown.add(coin);
         valueOfCoinsThrown += coin.getValue();
     }
-
     public double getValueOfCoinsThrown(){
         return valueOfCoinsThrown;
     }
-
-
-
-
 }
