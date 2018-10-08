@@ -39,6 +39,7 @@ public class Display {
         } while (decision == 1);
         while(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown() > 0) {
             collectMoney(keyboard);
+            changeStorage.giveChange(coinsDifference());
         }
         for(int i = 0; i < shoppingCart.getTicketsQuantity(); i++)
             printer.printTicket(shoppingCart.getTicketsBought().get(i));
@@ -117,8 +118,7 @@ public class Display {
     }
     private void collectMoney(Scanner keyboard){
         int decision;
-        System.out.println("Do zapłaty: "+
-                DoubleRounder.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2)+"zł");
+        System.out.println("Do zapłaty: "+ coinsDifference()+"zł");
         //In real life situation customer is just going to throw coins from the wallet
         System.out.println("1. 5zł \t2. 2zł");
         System.out.println("3. 1zł \t4. 50gr");
@@ -133,5 +133,8 @@ public class Display {
         System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej.");
         temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
+    }
+    private double coinsDifference(){
+        return Math.abs(DoubleRounder.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2));
     }
 }
