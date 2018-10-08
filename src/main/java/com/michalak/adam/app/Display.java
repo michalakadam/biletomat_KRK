@@ -1,5 +1,4 @@
 package com.michalak.adam.app;
-import com.michalak.adam.helpers.Coin;
 import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
@@ -59,7 +58,13 @@ public class Display {
         System.out.println("3. \n" + Ticket.FOURTYREDUCEDZONEI + "4. \n" + Ticket.FOURTYZONEI);
         System.out.println("5. \n" + Ticket.SIXTYREDUCEDZONEI + "6. \n" + Ticket.SIXTYZONEI);
         System.out.println("7. \n" + Ticket.NINETYREDUCEDZONEI + "8. \n" + Ticket.NINETYZONEI);
-        decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 8);
+        System.out.println("9. Cofnij do ekranu początkowego.");
+        System.out.println("10. Zrezygnuj z zakupu biletów.");
+        decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 10);
+        if(decision == 9)
+            flowController(keyboard);
+        else if(decision == 10)
+            abandonTransaction(keyboard);
         quantity = pickQuantity(keyboard);
         shoppingCart.addBiletyMiastoToCart(decision, quantity);
     }
@@ -69,7 +74,13 @@ public class Display {
         System.out.println("1. \n" + Ticket.RIDEREDUCEDZONEII + "2. \n" + Ticket.RIDEZONEII);
         System.out.println("3. \n" + Ticket.SIXTYREDUCEDZONEII + "4. \n" + Ticket.SIXTYZONEII);
         System.out.println("5. \n" + Ticket.NINETYREDUCEDZONEII + "6. \n" + Ticket.NINETYZONEII);
-        decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 6);
+        System.out.println("7. Cofnij do ekranu początkowego.");
+        System.out.println("8. Zrezygnuj z zakupu biletów.");
+        decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 8);
+        if(decision == 7)
+            flowController(keyboard);
+        else if(decision == 8)
+            abandonTransaction(keyboard);
         quantity = pickQuantity(keyboard);
         shoppingCart.addBiletyAglomeracjaToCart(decision, quantity);
     }
@@ -82,6 +93,11 @@ public class Display {
             pickQuantity(keyboard);
         }
         return quantity;
+    }
+    private void abandonTransaction(Scanner keyboard){
+        temporaryMoneyStorage.clearTemporaryStorage();
+        shoppingCart.clearShoppingCart();
+        flowController(keyboard);
     }
     private void orderSummary(){
         System.out.println("W twoim koszyku "+
@@ -99,7 +115,7 @@ public class Display {
         temporaryMoneyStorage.addCoinToMoneyStorage(decision);
     }
     private void transactionConclusion(){
-        System.out.println("Dziękujemy za skorzystanie z komunikacji miejskiej.");
+        System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej.");
         temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
     }
