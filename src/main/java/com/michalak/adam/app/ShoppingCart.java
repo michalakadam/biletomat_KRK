@@ -37,7 +37,7 @@ public class ShoppingCart {
             else if (decision == 6) addTicketToCart(Ticket.NINETYZONEII);
         }
     }
-   private void addTicketToCart(Ticket ticket){
+   protected void addTicketToCart(Ticket ticket){
         ticketsBought.add(ticket);
         //increase cart value at the same time
         addTicketValue(ticket);

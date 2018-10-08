@@ -101,6 +101,7 @@ public class Display {
         flowController(keyboard);
     }
     private void giveCoinsBack(){
+        System.out.println("Twoje zwrócone monety:");
         for(int i = 0; i < temporaryMoneyStorage.getAmountOfCoinsThrown(); i++) {
             //in real life situation real coins are given back to the customer
             System.out.println(temporaryMoneyStorage.getCoinsThrown().get(i));
@@ -108,8 +109,8 @@ public class Display {
     }
     private void orderSummary(){
         System.out.println("W twoim koszyku "+
-                (shoppingCart.getTicketsQuantity()%2 == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
-                (shoppingCart.getTicketsQuantity()%2 == 1 ? " bilet" : " bilety")+".");
+                (shoppingCart.getTicketsQuantity() == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
+                (shoppingCart.getTicketsQuantity() == 1 ? " bilet" : " bilety")+".");
     }
     private void collectMoney(Scanner keyboard){
         int decision;
@@ -118,7 +119,10 @@ public class Display {
         System.out.println("1. 5zł \t2. 2zł");
         System.out.println("3. 1zł \t4. 50gr");
         System.out.println("5. 20gr\t6. 10gr");
-        decision = UserInputProvider.getInputFromUser(keyboard, "Wrzuć monetę", 1, 6);
+        System.out.println("7. Zrezygnuj z zakupu biletów.");
+        decision = UserInputProvider.getInputFromUser(keyboard, "Wrzuć monetę", 1, 7);
+        if(decision == 7)
+            abandonTransaction(keyboard);
         temporaryMoneyStorage.addCoinToMoneyStorage(decision);
     }
     private void transactionConclusion(){
