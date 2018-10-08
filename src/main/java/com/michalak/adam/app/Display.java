@@ -63,16 +63,7 @@ public class Display {
         System.out.println("7. \n" + Ticket.NINETYREDUCEDZONEI + "8. \n" + Ticket.NINETYZONEI);
         decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 8);
         quantity = pickQuantity(keyboard);
-        for (int i = 1; i <= quantity; i++) {
-            if (decision == 1) shoppingCart.addTicketToCart(Ticket.TWENTYREDUCEDZONEI);
-            else if (decision == 2) shoppingCart.addTicketToCart(Ticket.TWENTYZONEI);
-            else if (decision == 3) shoppingCart.addTicketToCart(Ticket.FOURTYREDUCEDZONEI);
-            else if (decision == 4) shoppingCart.addTicketToCart(Ticket.FOURTYZONEI);
-            else if (decision == 5) shoppingCart.addTicketToCart(Ticket.SIXTYREDUCEDZONEI);
-            else if (decision == 6) shoppingCart.addTicketToCart(Ticket.SIXTYZONEI);
-            else if (decision == 7) shoppingCart.addTicketToCart(Ticket.NINETYREDUCEDZONEI);
-            else if (decision == 8) shoppingCart.addTicketToCart(Ticket.NINETYZONEI);
-        }
+        shoppingCart.addBiletyMiastoToCart(decision, quantity);
     }
 
     private void biletyAglomeracja(Scanner keyboard) {
@@ -83,14 +74,7 @@ public class Display {
         System.out.println("5. \n" + Ticket.NINETYREDUCEDZONEII + "6. \n" + Ticket.NINETYZONEII);
         decision = UserInputProvider.getInputFromUser(keyboard, "Wybierz bilet: ", 1, 6);
         quantity = pickQuantity(keyboard);
-        for (int i = 1; i <= quantity; i++) {
-            if (decision == 1) shoppingCart.addTicketToCart(Ticket.RIDEREDUCEDZONEII);
-            else if (decision == 2) shoppingCart.addTicketToCart(Ticket.RIDEZONEII);
-            else if (decision == 3) shoppingCart.addTicketToCart(Ticket.SIXTYREDUCEDZONEII);
-            else if (decision == 4) shoppingCart.addTicketToCart(Ticket.SIXTYZONEII);
-            else if (decision == 5) shoppingCart.addTicketToCart(Ticket.NINETYREDUCEDZONEII);
-            else if (decision == 6) shoppingCart.addTicketToCart(Ticket.NINETYZONEII);
-        }
+        shoppingCart.addBiletyAglomeracjaToCart(decision, quantity);
     }
 
     private int pickQuantity(Scanner keyboard) {
