@@ -15,11 +15,13 @@ public class Display {
     private Printer printer;
     private ShoppingCart shoppingCart;
     private TemporaryMoneyStorage temporaryMoneyStorage;
+    private ChangeStorage changeStorage;
 
     public Display() {
         this.printer = new Printer();
         this.shoppingCart = new ShoppingCart();
         this.temporaryMoneyStorage = new TemporaryMoneyStorage();
+        this.changeStorage = new ChangeStorage();
     }
 
     //method that is going to display information for a client throughout the process
