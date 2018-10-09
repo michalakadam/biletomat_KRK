@@ -5,7 +5,6 @@ import com.michalak.adam.helpers.UserInputProvider;
 
 import java.util.Scanner;
 
-
 /**
  * Display is a way of communicating with the customer. It shows screens with available tickets, warns about
  * possible limitations (running out of paper, no change) and tells how much customer should pay.
@@ -137,6 +136,10 @@ public class Display {
     }
     private void transactionConclusion(){
         System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej.");
+        //move coins from temporary money storage to change storage
+        for(int i = 0; i < temporaryMoneyStorage.getAmountOfCoinsThrown(); i++) {
+            changeStorage.addCoin(temporaryMoneyStorage.getCoinsThrown().get(i));
+        }
         temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
     }
