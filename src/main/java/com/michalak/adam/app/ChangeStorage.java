@@ -18,11 +18,11 @@ public class ChangeStorage {
     private Bank bank;
     public ChangeStorage(){
         bank = new Bank();
-        coins = new ArrayList<Integer>(6); //there are six types of coins
+        coins = new ArrayList<Integer>();
         //when ticket machine is initialized coins are randomly distributed
         Random randomGenerator = new Random();
-        for(int i = 0; i < 6; i++){
-            coins.set(i, randomGenerator.nextInt(101));
+        for(int i = 0; i < 6; i++){  //there are six types of coins
+            coins.add(randomGenerator.nextInt(101));
         }
     }
     public boolean isChangeAvailable(double difference){
