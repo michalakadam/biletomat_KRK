@@ -21,9 +21,28 @@ public class ChangeStorage {
         coins = new ArrayList<Integer>(6); //there are six types of coins
         //when ticket machine is initialized coins are randomly distributed
         Random randomGenerator = new Random();
-        for(int i = 0; i < coins.size(); i++){
+        for(int i = 0; i < 6; i++){
             coins.set(i, randomGenerator.nextInt(101));
         }
+    }
+    public boolean isChangeAvailable(double difference){
+        //difference is always < 5.0
+        double sum = 0;
+        for(int two = 0; two <= 2; two++){ //handles COIN.TWO
+            for(int one = 0; one <= 4; one++){ //handles COIN.ONE
+                for(int fifty = 0; fifty <= 9; fifty++){ //handles COIN.POINTFIFTY
+                    for(int twenty = 0; twenty <= 24; twenty++) { //handles COIN.POINTTWENTY
+                        for (int ten = 0; ten <= 49; ten++) { //handles COIN.POINTTEN
+                            sum = two*Coin.TWO.getValue()+one*Coin.ONE.getValue()+fifty*Coin.POINTFIFTY.getValue()+
+                                    twenty*Coin.POINTTWENTY.getValue()+ten*Coin.POINTTEN.getValue();
+                            if(FloatingPointHandler.isNear(sum, difference))
+                                return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     public ArrayList<Coin> giveChange(double difference){
         ArrayList<Coin> change = new ArrayList<Coin>();
@@ -88,8 +107,6 @@ public class ChangeStorage {
             coins.set(5, coins.get(5) - 1);
     }
     public boolean checkPlaceForAnotherCoin(int index){
-        if(coins.get(index) < 100)
-            return true;
-        return false;
+        return coins.get(index) < 100;
     }
 }
