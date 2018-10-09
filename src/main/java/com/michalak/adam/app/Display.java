@@ -1,5 +1,5 @@
 package com.michalak.adam.app;
-import com.michalak.adam.helpers.DoubleRounder;
+import com.michalak.adam.helpers.FloatingPointHandler;
 import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
@@ -135,6 +135,6 @@ public class Display {
         shoppingCart.clearShoppingCart();
     }
     private double coinsDifference(){
-        return Math.abs(DoubleRounder.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2));
+        return Math.abs(FloatingPointHandler.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2));
     }
 }
