@@ -8,14 +8,14 @@ public class FloatingPointHandlerTest {
 
     @Test
     public void isNear() {
-        double thisOne = 2.500000;
-        double thatOne = 2.500001;
+        double thisOne = 2.050;
+        double thatOne = 2.059;
         assertTrue(FloatingPointHandler.isNear(thisOne, thatOne));
     }
     @Test
     public void isNotNear(){
-        double thisOne = 2.50000;
-        double thatOne = 2.50001;
+        double thisOne = 2.050;
+        double thatOne = 2.060;
         assertFalse(FloatingPointHandler.isNear(thisOne, thatOne));
     }
 }
