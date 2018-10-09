@@ -46,29 +46,29 @@ public class ChangeStorage {
     }
     public ArrayList<Coin> giveChange(double difference){
         ArrayList<Coin> change = new ArrayList<Coin>();
-        while(difference > 0) {
+        while(!FloatingPointHandler.isNear(difference)) {
             //difference will never be greater or equal to five
-            if (FloatingPointHandler.isNear(1.0, difference%2)) {
+            if (difference/2.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/2.0)) {
                 change.add(Coin.TWO);
                 removeCoin(Coin.TWO);
                 difference -= Coin.TWO.getValue();
             }
-            else if (FloatingPointHandler.isNear(1.0, difference%1)) {
+            else if (difference/1.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/1.0)) {
                 change.add(Coin.ONE);
                 removeCoin(Coin.ONE);
                 difference -= Coin.ONE.getValue();
             }
-            else if (FloatingPointHandler.isNear(1.0, difference%0.5)) {
+            else if (difference/0.5 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.5)) {
                 change.add(Coin.POINTFIFTY);
                 removeCoin(Coin.POINTFIFTY);
                 difference -= Coin.POINTFIFTY.getValue();
             }
-            else if (FloatingPointHandler.isNear(1.0, difference%0.2)) {
+            else if (difference/0.2 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.2)) {
                 change.add(Coin.POINTTWENTY);
                 removeCoin(Coin.POINTTWENTY);
                 difference -= Coin.POINTTWENTY.getValue();
             }
-            else if (FloatingPointHandler.isNear(1.0, difference%0.1)) {
+            else if (difference/0.1 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.1)) {
                 change.add(Coin.POINTTEN);
                 removeCoin(Coin.POINTTEN);
                 difference -= Coin.POINTTEN.getValue();
