@@ -14,8 +14,8 @@ import java.util.Random;
  */
 
 public class ChangeStorage {
-    ArrayList<Integer> coins;
-    Bank bank;
+    private ArrayList<Integer> coins;
+    private Bank bank;
     public ChangeStorage(){
         bank = new Bank();
         coins = new ArrayList<Integer>(6); //there are six types of coins
@@ -27,7 +27,7 @@ public class ChangeStorage {
     }
     public boolean isChangeAvailable(double difference){
         //difference is always < 5.0
-        double sum = 0;
+        double sum;
         for(int two = 0; two <= 2; two++){ //handles COIN.TWO
             for(int one = 0; one <= 4; one++){ //handles COIN.ONE
                 for(int fifty = 0; fifty <= 9; fifty++){ //handles COIN.POINTFIFTY
@@ -93,7 +93,7 @@ public class ChangeStorage {
         else
             bank.add(coin);
     }
-    public void removeCoin(Coin coin){
+    private void removeCoin(Coin coin){
         //difference will never be greater or equal to five
         if(coin.equals(Coin.TWO))
             coins.set(1, coins.get(1) - 1);
@@ -106,7 +106,7 @@ public class ChangeStorage {
         else if(coin.equals(Coin.POINTTEN))
             coins.set(5, coins.get(5) - 1);
     }
-    public boolean checkPlaceForAnotherCoin(int index){
+    private boolean checkPlaceForAnotherCoin(int index){
         return coins.get(index) < 100;
     }
 }
