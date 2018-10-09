@@ -4,12 +4,10 @@ import com.michalak.adam.helpers.Ticket;
 import com.michalak.adam.helpers.UserInputProvider;
 
 import java.util.Scanner;
-
 /**
  * Display is a way of communicating with the customer. It shows screens with available tickets, warns about
  * possible limitations (running out of paper, no change) and tells how much customer should pay.
  */
-
 public class Display {
     private Printer printer;
     private ShoppingCart shoppingCart;
@@ -22,7 +20,6 @@ public class Display {
         this.temporaryMoneyStorage = new TemporaryMoneyStorage();
         this.changeStorage = new ChangeStorage();
     }
-
     //method that is going to display information for a client throughout the process
     protected void flowController(Scanner keyboard) {
         //first let's check if tickets can be printed on paper
@@ -36,16 +33,18 @@ public class Display {
             if (decision == 1)
                 initialScreen(keyboard);
         } while (decision == 1);
-        while(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown() > 0) {
-            if(changeStorage.isChangeAvailable(coinsDifference())) {
-                collectMoney(keyboard);
-                changeStorage.giveChange(coinsDifference());
-            }
-            else {
-                System.out.println("ZAPŁATA MOŻLIWA TYLKO ODLICZONĄ KWOTĄ.");
+        if(changeStorage.isChangeAvailable(coinsDifference())) {
+            while(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown() > 0) {
                 collectMoney(keyboard);
             }
+            if(FloatingPointHandler.isNear(temporaryMoneyStorage.getValueOfCoinsThrown(), shoppingCart.getTicketsValue()))
+                System.out.println("Twoja reszta:\n"+changeStorage.giveChange(coinsDifference()));
         }
+        else {
+            System.out.println("ZAPŁATA MOŻLIWA TYLKO ODLICZONĄ KWOTĄ.");
+            collectMoney(keyboard);
+        }
+        System.out.println("Twoje bilety: ");
         for(int i = 0; i < shoppingCart.getTicketsQuantity(); i++)
             printer.printTicket(shoppingCart.getTicketsBought().get(i));
         transactionConclusion();
@@ -135,7 +134,7 @@ public class Display {
         temporaryMoneyStorage.addCoinToMoneyStorage(decision);
     }
     private void transactionConclusion(){
-        System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej.");
+        System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej.\n\n-----------------------------\n");
         //move coins from temporary money storage to change storage
         for(int i = 0; i < temporaryMoneyStorage.getAmountOfCoinsThrown(); i++) {
             changeStorage.addCoin(temporaryMoneyStorage.getCoinsThrown().get(i));
