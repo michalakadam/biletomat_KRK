@@ -37,7 +37,7 @@ public class Display {
             while(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown() > 0) {
                 collectMoney(keyboard);
             }
-            if(FloatingPointHandler.isNear(temporaryMoneyStorage.getValueOfCoinsThrown(), shoppingCart.getTicketsValue()))
+            if(!FloatingPointHandler.isNear(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()))
                 System.out.println("Twoja reszta:\n"+changeStorage.giveChange(coinsDifference()));
         }
         else {
