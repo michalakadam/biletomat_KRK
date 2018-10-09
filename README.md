@@ -2,6 +2,9 @@
 Ticket machine software of a public transport company in Cracow, Poland. 
 Sells tickets, gives change and informs when it cannot do so.
 
+How to run the code:
+This project was developed using Intellij IDEa and was procided with Maven structure so it's most convenient to use it as well to open this project. In Intellij IDEa go to File -> New -> Project from Version Control -> Git and paste URL of this repository.
+
 This code provides user interface and following functionalities:
 - machine can sell official tickets for public transportation listed here: 
 http://www.mpk.krakow.pl/pl/bilety2/rodzaje-biletow/
