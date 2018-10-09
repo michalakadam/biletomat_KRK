@@ -24,16 +24,6 @@ public class TicketTest {
         System.out.print("\n"+ticket.toString());
     }
     @Test
-    public void isReallyNear(){
-        ticket = Ticket.TWENTYZONEI;
-        assertTrue(ticket.isNear(2.80000000001));
-    }
-    @Test
-    public void isNotEnoughNear(){
-        ticket = Ticket.TWENTYZONEI;
-        assertFalse(ticket.isNear(2.8000000009));
-    }
-    @Test
     public void checkNormal(){
         ticket = Ticket.TWENTYZONEI;
         assertEquals("NORMALNY", ticket.checkReduction());

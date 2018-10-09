@@ -51,18 +51,10 @@ public enum Ticket {
     public int getZone(){
         return this.zone;
     }
-
-    /**
-     * method for comparing floating point numbers
-     * @param thatPrice is a price that Ticket price is compared to
-     * @return true if difference between compared numbers is less than 1e-10
-     */
-    public boolean isNear(double thatPrice){
-        return Math.abs(this.price - thatPrice) < 1e-10;
-    }
-
     public String checkReduction(){
-        if (this.isNear(2.80) || this.isNear(3.80) || this.isNear(4.0) || this.isNear(5.0) || this.isNear(6.0) )
+        if (FloatingPointHandler.isNear(this.price, 2.80) || FloatingPointHandler.isNear(this.price, 3.80)
+                || FloatingPointHandler.isNear(this.price, 4.00) || FloatingPointHandler.isNear(this.price, 5.00)
+                || FloatingPointHandler.isNear(this.price, 6.00) )
             return "NORMALNY";
         else
             return "ULGOWY";
