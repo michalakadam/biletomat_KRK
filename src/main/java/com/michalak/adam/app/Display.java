@@ -26,6 +26,7 @@ public class Display {
     /**
      * This method displays information for a client throughout the process.
      * It handles the whole transaction from the beginning to the very end.
+     * @param keyboard is the scanner used by the user
      */
     protected void flowController(Scanner keyboard) {
         //first let's check if tickets can be printed on paper
@@ -60,7 +61,7 @@ public class Display {
     /**
      * This method lets customer choose if they want to buy city tickets (I strefa miasto Kraków) or
      * long-range tickets (I + II aglomeracja).
-     * @param keyboard
+     * @param keyboard is the scanner used by the user
      */
     private void initialScreen(Scanner keyboard) {
         //this is obviously going to be a touch screen in real ticket machine but I will use numbers to make it work on computer
@@ -75,7 +76,7 @@ public class Display {
     /**
      * This method shows possible to buy tickets for the city zone, collects decision from the customer
      * and adds ticket(s) to the customer's shopping cart.
-     * @param keyboard
+     * @param keyboard is the scanner used by the user
      */
     private void biletyMiasto(Scanner keyboard) {
         int decision;
@@ -98,7 +99,7 @@ public class Display {
     /**
      * This method shows possible to buy long-range tickets for the I+II zone, collects decision from the customer
      * and adds ticket(s) to the customer's shopping cart.
-     * @param keyboard
+     * @param keyboard is the scanner used by the user
      */
     private void biletyAglomeracja(Scanner keyboard) {
         int decision;
@@ -120,7 +121,7 @@ public class Display {
     /**
      * This method allows customer to buy more than one ticket of a given type providing there is enough
      * paper for them.
-     * @param keyboard
+     * @param keyboard is the scanner used by the user
      * @return chosen quantity of tickets of a given type.
      */
     private int pickQuantity(Scanner keyboard) {
@@ -138,7 +139,7 @@ public class Display {
      * This methods prepares ticket machine for another transaction when customer decides that they want to
      * not proceed with the transaction. Coins are given back, temporary money storage and shopping cart
      * are cleared.
-     * @param keyboard
+     * @param keyboard is the scanner used by the user
      */
     private void abandonTransaction(Scanner keyboard){
         giveCoinsBack();
@@ -171,7 +172,7 @@ public class Display {
      * This method imitates hardware component responsible for collecting coins. Instead of throwing money
      * directly from the wallet, customer tells what type of coin they throw into the ticket machine.
      * This method makes it possible for the customer to abandon transaction.
-     * @param keyboard
+     * @param keyboard is the scanner used by the user
      */
     private void collectMoney(Scanner keyboard){
         int decision;
