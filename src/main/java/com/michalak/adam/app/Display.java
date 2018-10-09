@@ -38,8 +38,14 @@ public class Display {
                 initialScreen(keyboard);
         } while (decision == 1);
         while(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown() > 0) {
-            collectMoney(keyboard);
-            changeStorage.giveChange(coinsDifference());
+            if(changeStorage.isChangeAvailable(coinsDifference())) {
+                collectMoney(keyboard);
+                changeStorage.giveChange(coinsDifference());
+            }
+            else {
+                System.out.println("ZAPŁATA MOŻLIWA TYLKO ODLICZONĄ KWOTĄ.");
+                collectMoney(keyboard);
+            }
         }
         for(int i = 0; i < shoppingCart.getTicketsQuantity(); i++)
             printer.printTicket(shoppingCart.getTicketsBought().get(i));
