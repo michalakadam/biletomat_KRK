@@ -4,9 +4,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * Helper that provides two methods for working with double variables:
+ * Helper that provides methods for working with double variables:
  * 1. round(double value, int places) rounds double values to specified amount of significant digits.
  * 2. isNear(double expected, double compared) solves problem of comparing two floating point numbers.
+ * 3. isNear(double value) tells if value is (almost) equal to zero.
  * @author www.baeldung.com
  */
 public class FloatingPointHandler {
