@@ -7,6 +7,8 @@ import java.util.Scanner;
 /**
  * Display is a way of communicating with the customer. It shows screens with available tickets, warns about
  * possible limitations (running out of paper, no change) and tells how much customer should pay.
+ * It is also a place of initialization of all other objects though I am not sure that it is the best way
+ * to do it. Do you have any idea how to make it more elegant? Tell me about it!
  */
 public class Display {
     private Printer printer;
@@ -20,7 +22,11 @@ public class Display {
         this.temporaryMoneyStorage = new TemporaryMoneyStorage();
         this.changeStorage = new ChangeStorage();
     }
-    //method that is going to display information for a client throughout the process
+
+    /**
+     * This method displays information for a client throughout the process.
+     * It handles the whole transaction from the beginning to the very end.
+     */
     protected void flowController(Scanner keyboard) {
         //first let's check if tickets can be printed on paper
         printer.checkPaper();
@@ -34,7 +40,7 @@ public class Display {
                 initialScreen(keyboard);
         } while (decision == 1);
         if(changeStorage.isChangeAvailable(coinsDifference())) {
-            while(shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown() > 0) {
+            while(coinsDifference() > 0) {
                 collectMoney(keyboard);
             }
             if(!FloatingPointHandler.isNear(coinsDifference()))
@@ -50,6 +56,12 @@ public class Display {
         transactionConclusion();
         flowController(keyboard); //Ticket machine begins another transaction
     }
+
+    /**
+     * This method lets customer choose if they want to buy city tickets (I strefa miasto Kraków) or
+     * long-range tickets (I + II aglomeracja).
+     * @param keyboard
+     */
     private void initialScreen(Scanner keyboard) {
         //this is obviously going to be a touch screen in real ticket machine but I will use numbers to make it work on computer
         int decision;
@@ -59,6 +71,12 @@ public class Display {
         else if (decision == 2)
             biletyAglomeracja(keyboard);
     }
+
+    /**
+     * This method shows possible to buy tickets for the city zone, collects decision from the customer
+     * and adds ticket(s) to the customer's shopping cart.
+     * @param keyboard
+     */
     private void biletyMiasto(Scanner keyboard) {
         int decision;
         int quantity;
@@ -76,6 +94,12 @@ public class Display {
         quantity = pickQuantity(keyboard);
         shoppingCart.addBiletyMiastoToCart(decision, quantity);
     }
+
+    /**
+     * This method shows possible to buy long-range tickets for the I+II zone, collects decision from the customer
+     * and adds ticket(s) to the customer's shopping cart.
+     * @param keyboard
+     */
     private void biletyAglomeracja(Scanner keyboard) {
         int decision;
         int quantity;
@@ -92,22 +116,40 @@ public class Display {
         quantity = pickQuantity(keyboard);
         shoppingCart.addBiletyAglomeracjaToCart(decision, quantity);
     }
+
+    /**
+     * This method allows customer to buy more than one ticket of a given type providing there is enough
+     * paper for them.
+     * @param keyboard
+     * @return chosen quantity of tickets of a given type.
+     */
     private int pickQuantity(Scanner keyboard) {
         int quantity;
         quantity = UserInputProvider.getInputFromUser(keyboard, "Wybierz ilość biletów (1-9)", 1, 9);
         //disables choosing more tickets than the machine is able to print
         if (shoppingCart.getTicketsQuantity() + quantity > printer.getPaperPieces()) {
-            System.err.println("Nie można wydrukować tylu biletów. Spróbuj mniejszą liczbę");
+            System.err.println("W tym momencie można wydrukować maksymalnie "+printer.getPaperPieces()+" biletów. Spróbuj mniejszą liczbę");
             pickQuantity(keyboard);
         }
         return quantity;
     }
+
+    /**
+     * This methods prepares ticket machine for another transaction when customer decides that they want to
+     * not proceed with the transaction. Coins are given back, temporary money storage and shopping cart
+     * are cleared.
+     * @param keyboard
+     */
     private void abandonTransaction(Scanner keyboard){
         giveCoinsBack();
         temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
         flowController(keyboard);
     }
+
+    /**
+     * This method returns coins to the customer when the transaction is abandoned.
+     */
     private void giveCoinsBack(){
         System.out.println("Twoje zwrócone monety:");
         for(int i = 0; i < temporaryMoneyStorage.getAmountOfCoinsThrown(); i++) {
@@ -115,11 +157,22 @@ public class Display {
             System.out.println(temporaryMoneyStorage.getCoinsThrown().get(i));
         }
     }
+
+    /**
+     * This method tells the customer how many tickets they've bought so far.
+     */
     private void orderSummary(){
         System.out.println("W twoim koszyku "+
                 (shoppingCart.getTicketsQuantity() == 1 ? "jest " : "są ")+ shoppingCart.getTicketsQuantity() +
                 (shoppingCart.getTicketsQuantity() == 1 ? " bilet" : " bilety")+".");
     }
+
+    /**
+     * This method imitates hardware component responsible for collecting coins. Instead of throwing money
+     * directly from the wallet, customer tells what type of coin they throw into the ticket machine.
+     * This method makes it possible for the customer to abandon transaction.
+     * @param keyboard
+     */
     private void collectMoney(Scanner keyboard){
         int decision;
         System.out.println("Do zapłaty: "+ coinsDifference()+"zł");
@@ -133,8 +186,15 @@ public class Display {
             abandonTransaction(keyboard);
         temporaryMoneyStorage.addCoinToMoneyStorage(decision);
     }
+
+    /**
+     * This method says thank you to the customer for using public transportation.
+     * It makes sure that coins thrown by the customer are moved from temporary money storage to
+     * change storage. It then clears temporary money storage and shopping cart.
+     */
     private void transactionConclusion(){
-        System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej.\n\n-----------------------------\n");
+        System.out.println("Dziękujemy za korzystanie z komunikacji miejskiej." +
+                "\n\n-----------------------------\n");
         //move coins from temporary money storage to change storage
         for(int i = 0; i < temporaryMoneyStorage.getAmountOfCoinsThrown(); i++) {
             changeStorage.addCoin(temporaryMoneyStorage.getCoinsThrown().get(i));
@@ -142,7 +202,13 @@ public class Display {
         temporaryMoneyStorage.clearTemporaryStorage();
         shoppingCart.clearShoppingCart();
     }
+
+    /**
+     * This method calculates absolute value of a difference between value of tickets in the shopping cart
+     * and value of coins thrown by the customer.
+     * @return difference between those two values.
+     */
     private double coinsDifference(){
-        return Math.abs(FloatingPointHandler.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2));
+        return FloatingPointHandler.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2);
     }
 }
