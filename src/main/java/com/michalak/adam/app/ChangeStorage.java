@@ -25,6 +25,12 @@ public class ChangeStorage {
             coins.add(randomGenerator.nextInt(101));
         }
     }
+
+    /**
+     * This method provides an algorithm that tells if giving change to the customer is possible.
+     * @param difference is difference between value of coins inserted and price of selected tickets.
+     * @return true if giving change is possible.
+     */
     public boolean isChangeAvailable(double difference){
         //difference is always < 5.0
         double sum;
@@ -44,6 +50,13 @@ public class ChangeStorage {
         }
         return false;
     }
+
+    /**
+     * This method is responsible for giving change to the customer. It attempts to do it using as little coins
+     * as possible - starting with the most valuable coins.
+     * @param difference is difference between money paid by the customer and tickets' value - change.
+     * @return ArrayList of coins that are then given to the customer as change.
+     */
     public ArrayList<Coin> giveChange(double difference){
         ArrayList<Coin> change = new ArrayList<Coin>();
         while(!FloatingPointHandler.isNear(difference)) {
@@ -76,6 +89,12 @@ public class ChangeStorage {
         }
         return change;
     }
+
+    /**
+     * This method is called when the transaction is comfirmed. Then coins are moved from temporary storage.
+     * to change storage. If there is no place in change storage for a given coin then it is moved to the bank.
+     * @param coin is the specific coin that is added from temporary storage.
+     */
     public void addCoin(Coin coin){
         //difference will never be greater or equal to five
         if(coin.equals(Coin.FIVE))
@@ -93,6 +112,11 @@ public class ChangeStorage {
         else
             bank.add(coin);
     }
+
+    /**
+     * This method is used when coins are taken from change source and given to the customer.
+     * @param coin is the specific coin given to the customer as change.
+     */
     private void removeCoin(Coin coin){
         //difference will never be greater or equal to five
         if(coin.equals(Coin.TWO))
@@ -106,6 +130,12 @@ public class ChangeStorage {
         else if(coin.equals(Coin.POINTTEN))
             coins.set(5, coins.get(5) - 1);
     }
+
+    /**
+     * This method checks if there is place for a coin of the given type in the change repository.
+     * @param index characterizes the type of coin that is checked.
+     * @return true if there is a place to another coin of the given type to the change source.
+     */
     private boolean checkPlaceForAnotherCoin(int index){
         return coins.get(index) < 100;
     }
