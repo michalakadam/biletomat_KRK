@@ -18,6 +18,6 @@ public class FloatingPointHandler {
         return bd.doubleValue();
     }
     public static boolean isNear(double expected, double compared){
-        return (expected - compared) < 1e10-5;
+        return Math.abs(expected - compared) < 1E-5;
     }
 }
