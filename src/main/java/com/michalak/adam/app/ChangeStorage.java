@@ -62,30 +62,35 @@ public class ChangeStorage {
 
         while(!FloatingPointHandler.isNearZero(difference)) {
             //difference will never be greater or equal to five
-            if (difference/2.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/2.0)) {
+            if (coinIsAvailable(1) && difference/2.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/2.0)) {
                 change.add(Coin.TWO);
                 removeCoin(Coin.TWO);
                 difference -= Coin.TWO.getValue();
             }
-            else if (difference/1.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/1.0)) {
+            else if (coinIsAvailable(2) && difference/1.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/1.0)) {
                 change.add(Coin.ONE);
                 removeCoin(Coin.ONE);
                 difference -= Coin.ONE.getValue();
             }
-            else if (difference/0.5 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.5)) {
+            else if (coinIsAvailable(3) && difference/0.5 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.5)) {
                 change.add(Coin.POINTFIFTY);
                 removeCoin(Coin.POINTFIFTY);
                 difference -= Coin.POINTFIFTY.getValue();
             }
-            else if (difference/0.2 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.2)) {
+            else if (coinIsAvailable(4) && difference/0.2 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.2)) {
                 change.add(Coin.POINTTWENTY);
                 removeCoin(Coin.POINTTWENTY);
                 difference -= Coin.POINTTWENTY.getValue();
             }
-            else if (difference/0.1 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.1)) {
+            else if (coinIsAvailable(5) && difference/0.1 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.1)) {
                 change.add(Coin.POINTTEN);
                 removeCoin(Coin.POINTTEN);
                 difference -= Coin.POINTTEN.getValue();
+            }
+            //BUG EVIDENCE HERE. NO CONDITION IS FULFILLED.
+            else {
+                difference = 0;
+                System.out.println("Somehow I cannot give change");
             }
         }
         return change;
@@ -148,5 +153,8 @@ public class ChangeStorage {
     }
     protected void setCoinsAmount(int index, int amount){
         coins.set(index, amount);
+    }
+    private boolean coinIsAvailable(int index){
+        return coins.get(index) != 0;
     }
 }
