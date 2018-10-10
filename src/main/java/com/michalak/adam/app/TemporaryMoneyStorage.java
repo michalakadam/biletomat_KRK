@@ -42,5 +42,6 @@ public class TemporaryMoneyStorage {
     }
     public void clearTemporaryStorage(){
         coinsThrown.clear();
+        valueOfCoinsThrown = 0;
     }
 }
