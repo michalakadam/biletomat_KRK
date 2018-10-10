@@ -34,11 +34,11 @@ public class ChangeStorage {
     public boolean isChangeAvailable(double difference){
         //difference is always < 5.0
         double sum;
-        for(int two = 0; two <= 2; two++){ //handles COIN.TWO
-            for(int one = 0; one <= 4; one++){ //handles COIN.ONE
-                for(int fifty = 0; fifty <= 9; fifty++){ //handles COIN.POINTFIFTY
-                    for(int twenty = 0; twenty <= 24; twenty++) { //handles COIN.POINTTWENTY
-                        for (int ten = 0; ten <= 49; ten++) { //handles COIN.POINTTEN
+        for(int two = 0; two <= (getCertainCoinAmount(1) > 2 ? 2 : getCertainCoinAmount(1)); two++){ //handles COIN.TWO
+            for(int one = 0; one <= (getCertainCoinAmount(2) > 4 ? 4 : getCertainCoinAmount(2)); one++){ //handles COIN.ONE
+                for(int fifty = 0; fifty <= (getCertainCoinAmount(3) > 9 ? 9 : getCertainCoinAmount(3)); fifty++){ //handles COIN.POINTFIFTY
+                    for(int twenty = 0; twenty <= (getCertainCoinAmount(4) > 24 ? 24 : getCertainCoinAmount(4)); twenty++) { //handles COIN.POINTTWENTY
+                        for (int ten = 0; ten <= (getCertainCoinAmount(5) > 49 ? 49 : getCertainCoinAmount(5)); ten++) { //handles COIN.POINTTEN
                             sum = two*Coin.TWO.getValue()+one*Coin.ONE.getValue()+fifty*Coin.POINTFIFTY.getValue()+
                                     twenty*Coin.POINTTWENTY.getValue()+ten*Coin.POINTTEN.getValue();
                             if(FloatingPointHandler.isNear(sum, difference))
@@ -137,7 +137,16 @@ public class ChangeStorage {
      * @param index characterizes the type of coin that is checked.
      * @return true if there is a place to another coin of the given type to the change source.
      */
-    private boolean checkPlaceForAnotherCoin(int index){
+    protected boolean checkPlaceForAnotherCoin(int index){
         return coins.get(index) < 100;
+    }
+    protected ArrayList<Integer> getChangeAvailable(){
+        return coins;
+    }
+    private int getCertainCoinAmount(int index){
+        return coins.get(index);
+    }
+    protected void setCoinsAmount(int index, int amount){
+        coins.set(index, amount);
     }
 }
