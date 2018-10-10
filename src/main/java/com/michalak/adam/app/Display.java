@@ -44,8 +44,9 @@ public class Display {
             while(coinsDifference() > 0) {
                 collectMoney(keyboard);
             }
-            if(!FloatingPointHandler.isNearZero(coinsDifference()))
-                System.out.println("Twoja reszta:\n"+changeStorage.giveChange(coinsDifference()));
+            if(!FloatingPointHandler.isNearZero(coinsDifference())) {
+                System.out.println("Twoja reszta:\n" + changeStorage.giveChange(coinsDifference()));
+            }
         }
         else {
             System.out.println("ZAPŁATA MOŻLIWA TYLKO ODLICZONĄ KWOTĄ.");
