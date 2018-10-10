@@ -21,7 +21,7 @@ public class FloatingPointHandler {
     public static boolean isNear(double expected, double compared){
         return (Math.abs(expected - compared) < 1E-2);
     }
-    public static boolean isNear(double value){
+    public static boolean isNearZero(double value){
         return (Math.abs(value) < 1E-2);
     }
 }

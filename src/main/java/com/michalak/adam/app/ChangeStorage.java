@@ -59,7 +59,8 @@ public class ChangeStorage {
      */
     public ArrayList<Coin> giveChange(double difference){
         ArrayList<Coin> change = new ArrayList<Coin>();
-        while(!FloatingPointHandler.isNear(difference)) {
+
+        while(!FloatingPointHandler.isNearZero(difference)) {
             //difference will never be greater or equal to five
             if (difference/2.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/2.0)) {
                 change.add(Coin.TWO);

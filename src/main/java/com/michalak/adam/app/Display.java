@@ -44,7 +44,7 @@ public class Display {
             while(coinsDifference() > 0) {
                 collectMoney(keyboard);
             }
-            if(!FloatingPointHandler.isNear(coinsDifference()))
+            if(!FloatingPointHandler.isNearZero(coinsDifference()))
                 System.out.println("Twoja reszta:\n"+changeStorage.giveChange(coinsDifference()));
         }
         else {
@@ -176,7 +176,7 @@ public class Display {
      */
     private void collectMoney(Scanner keyboard){
         int decision;
-        System.out.println("Do zapłaty: "+ coinsDifference()+"zł");
+        System.out.println("Do zapłaty: "+ FloatingPointHandler.round(coinsDifference(), 2)+"zł");
         //In real life situation customer is just going to throw coins from the wallet
         System.out.println("1. 5zł \t2. 2zł");
         System.out.println("3. 1zł \t4. 50gr");
@@ -210,6 +210,6 @@ public class Display {
      * @return difference between those two values.
      */
     private double coinsDifference(){
-        return FloatingPointHandler.round((shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown()), 2);
+        return (shoppingCart.getTicketsValue() - temporaryMoneyStorage.getValueOfCoinsThrown());
     }
 }
