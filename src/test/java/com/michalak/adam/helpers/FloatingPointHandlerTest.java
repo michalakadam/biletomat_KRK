@@ -19,13 +19,13 @@ public class FloatingPointHandlerTest {
         assertFalse(FloatingPointHandler.isNear(thisOne, thatOne));
     }
     @Test
-    public void valueIsNear(){
+    public void valueIsNearZero(){
         double theOne = 0.009;
-        assertTrue(FloatingPointHandler.isNear(theOne));
+        assertTrue(FloatingPointHandler.isNearZero(theOne));
     }
     @Test
-    public void valueIsNotNear(){
+    public void valueIsNotNearZero(){
         double theOne = 0.01;
-        assertFalse(FloatingPointHandler.isNear(theOne));
+        assertFalse(FloatingPointHandler.isNearZero(theOne));
     }
 }
