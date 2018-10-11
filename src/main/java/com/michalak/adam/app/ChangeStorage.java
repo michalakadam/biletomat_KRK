@@ -59,38 +59,29 @@ public class ChangeStorage {
      */
     public ArrayList<Coin> giveChange(double difference){
         ArrayList<Coin> change = new ArrayList<Coin>();
-
+        difference = Math.abs(difference);
+        //difference will never be greater or equal to five
         while(!FloatingPointHandler.isNearZero(difference)) {
-            //difference will never be greater or equal to five
-            if (coinIsAvailable(1) && difference/2.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/2.0)) {
-                change.add(Coin.TWO);
+            if (coinIsAvailable(1) && (difference > 2.0 || FloatingPointHandler.isNear(2.0, difference))) {
                 removeCoin(Coin.TWO);
+                change.add(Coin.TWO);
                 difference -= Coin.TWO.getValue();
-            }
-            else if (coinIsAvailable(2) && difference/1.0 > 1.0 || FloatingPointHandler.isNear(1.0, difference/1.0)) {
-                change.add(Coin.ONE);
+            } else if (coinIsAvailable(2) && (difference > 1.0 || FloatingPointHandler.isNear(1.0, difference))) {
                 removeCoin(Coin.ONE);
+                change.add(Coin.ONE);
                 difference -= Coin.ONE.getValue();
-            }
-            else if (coinIsAvailable(3) && difference/0.5 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.5)) {
-                change.add(Coin.POINTFIFTY);
+            } else if (coinIsAvailable(3) && (difference > 0.5 || FloatingPointHandler.isNear(0.5, difference))) {
                 removeCoin(Coin.POINTFIFTY);
+                change.add(Coin.POINTFIFTY);
                 difference -= Coin.POINTFIFTY.getValue();
-            }
-            else if (coinIsAvailable(4) && difference/0.2 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.2)) {
-                change.add(Coin.POINTTWENTY);
+            } else if (coinIsAvailable(4) && (difference > 0.2 || FloatingPointHandler.isNear(0.2, difference))) {
                 removeCoin(Coin.POINTTWENTY);
+                change.add(Coin.POINTTWENTY);
                 difference -= Coin.POINTTWENTY.getValue();
-            }
-            else if (coinIsAvailable(5) && difference/0.1 > 1.0 || FloatingPointHandler.isNear(1.0, difference/0.1)) {
-                change.add(Coin.POINTTEN);
+            } else if (coinIsAvailable(5) && (difference > 0.1 || FloatingPointHandler.isNear(0.1, difference))) {
                 removeCoin(Coin.POINTTEN);
+                change.add(Coin.POINTTEN);
                 difference -= Coin.POINTTEN.getValue();
-            }
-            //BUG EVIDENCE HERE. NO CONDITION IS FULFILLED.
-            else {
-                difference = 0;
-                System.out.println("Somehow I cannot give change");
             }
         }
         return change;
