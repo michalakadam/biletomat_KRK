@@ -55,7 +55,6 @@ public class ChangeStorageTest {
         assertEquals(change.get(2), changeGiven.get(2));
         assertEquals(change.get(3), changeGiven.get(3));
         assertEquals(change.get(4), changeGiven.get(4));
-
     }
     @Test
     public void thereIsPlaceForAnotherCoin(){
