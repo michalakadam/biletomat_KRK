@@ -68,10 +68,6 @@ public class ChangeStorageTest {
         assertEquals(change.get(3), changeGiven.get(3));
         assertEquals(change.get(4), changeGiven.get(4));
     }
-    @Test (expected = IllegalArgumentException.class)
-    public void negativeChangeThrowsException(){
-        changeStorage.giveChange(-0.1);
-    }
     /* Those tests doesn't work and I cannot find the reason why.
     @Test
     public void addCoinPointFifty(){
@@ -117,6 +113,22 @@ public class ChangeStorageTest {
         changeStorage.setCoinsAmount(0, 0); //0 5zł coins
         //then
         assertFalse(changeStorage.coinIsAvailable(0));
+    }
+    @Test
+    public void addOneMoreCoin(){
+        //when
+        changeStorage.setCoinsAmount(0, 0); //0 5zł coins
+        changeStorage.addOneMoreCoin(0);
+        //then
+        assertEquals(1, changeStorage.getCertainCoinAmount(0));
+    }
+    @Test
+    public void removeOneCoin(){
+        //when
+        changeStorage.setCoinsAmount(0, 1); //1 5zł coin
+        changeStorage.removeOneCoin(0);
+        //then
+        assertEquals(0, changeStorage.getCertainCoinAmount(0));
     }
 
 }

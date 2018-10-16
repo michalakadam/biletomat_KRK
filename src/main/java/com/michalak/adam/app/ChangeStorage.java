@@ -58,9 +58,6 @@ public class ChangeStorage {
      * @return ArrayList of coins that are then given to the customer as change.
      */
     protected ArrayList<Coin> giveChange(double difference){
-        if (difference < 0) {
-            throw new IllegalArgumentException("Difference cannot be negative!");
-        }
         ArrayList<Coin> change = new ArrayList<Coin>();
         difference = Math.abs(difference);
         //difference will never be greater or equal to five
@@ -95,20 +92,20 @@ public class ChangeStorage {
      * to change storage. If there is no place in change storage for a given coin then it is moved to the bank.
      * @param coin is the specific coin that is added from temporary storage.
      */
-    protected void addCoin(Coin coin){
+    protected void addCoin(Coin coin) {
         //difference will never be greater or equal to five
-        if(coin.equals(Coin.FIVE))
+        if (coin.equals(Coin.FIVE))
             bank.add(coin);
-        else if(coin.equals(Coin.TWO) && checkPlaceForAnotherCoin(1))
-            coins.set(1, (coins.get(1) + 1));
-        else if(coin.equals(Coin.ONE) && checkPlaceForAnotherCoin(2))
-            coins.set(2, (coins.get(2) + 1));
-        else if(coin.equals(Coin.POINTFIFTY) && checkPlaceForAnotherCoin(3))
-            coins.set(3, (coins.get(3) + 1));
-        else if(coin.equals(Coin.POINTTWENTY) && checkPlaceForAnotherCoin(4))
-            coins.set(4, (coins.get(4) + 1));
-        else if(coin.equals(Coin.POINTTEN) && checkPlaceForAnotherCoin(5))
-            coins.set(5, (coins.get(5) + 1));
+        else if (coin.equals(Coin.TWO) && checkPlaceForAnotherCoin(1))
+            addOneMoreCoin(1);
+        else if (coin.equals(Coin.ONE) && checkPlaceForAnotherCoin(2))
+            addOneMoreCoin(2);
+        else if (coin.equals(Coin.POINTFIFTY) && checkPlaceForAnotherCoin(3))
+            addOneMoreCoin(3);
+        else if (coin.equals(Coin.POINTTWENTY) && checkPlaceForAnotherCoin(4))
+            addOneMoreCoin(4);
+        else if (coin.equals(Coin.POINTTEN) && checkPlaceForAnotherCoin(5))
+            addOneMoreCoin(5);
         else
             bank.add(coin);
     }
@@ -120,15 +117,15 @@ public class ChangeStorage {
     protected void removeCoin(Coin coin){
         //difference will never be greater or equal to five
         if(coin.equals(Coin.TWO))
-            coins.set(1, (coins.get(1) - 1));
+            removeOneCoin(1);
         else if(coin.equals(Coin.ONE))
-            coins.set(2, (coins.get(2) - 1));
+            removeOneCoin(2);
         else if(coin.equals(Coin.POINTFIFTY))
-            coins.set(3, (coins.get(3) - 1));
+            removeOneCoin(3);
         else if(coin.equals(Coin.POINTTWENTY))
-            coins.set(4, (coins.get(4) - 1));
+            removeOneCoin(4);
         else if(coin.equals(Coin.POINTTEN))
-            coins.set(5, (coins.get(5) - 1));
+            removeOneCoin(5);
     }
 
     /**
@@ -144,6 +141,16 @@ public class ChangeStorage {
     }
     protected int getCertainCoinAmount(int index){
         return coins.get(index);
+    }
+    protected void addOneMoreCoin(int index){
+        Integer value = coins.get(index);
+        value += 1;
+        coins.set(index, value);
+    }
+    protected void removeOneCoin(int index){
+        Integer value = coins.get(index);
+        value -= 1;
+        coins.set(index, value);
     }
     protected void setCoinsAmount(int index, int amount){
         coins.set(index, amount);

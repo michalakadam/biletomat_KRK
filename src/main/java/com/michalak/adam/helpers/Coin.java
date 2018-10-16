@@ -15,7 +15,10 @@ public enum Coin {
     public String toString(){
         return value > 0.9 ? value + "zł" : value*100 + "gr";
     }
-    public double getValue(){
+    public double getValue() {
         return this.value;
+    }
+    public boolean equals(Coin coin){
+        return this.value == coin.getValue();
     }
 }
