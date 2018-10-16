@@ -7,6 +7,14 @@ import static org.junit.Assert.*;
 public class FloatingPointHandlerTest {
 
     @Test
+    public void valueIsRoundedUp(){
+        assertEquals(1.1, FloatingPointHandler.round(1.05, 1), 1E-3);
+    }
+    @Test
+    public void valueIsRoundedDown(){
+        assertEquals(1.0, FloatingPointHandler.round(1.04, 1), 1E-3);
+    }
+    @Test
     public void valuesAreNear() {
         double thisOne = 2.050;
         double thatOne = 2.059;
