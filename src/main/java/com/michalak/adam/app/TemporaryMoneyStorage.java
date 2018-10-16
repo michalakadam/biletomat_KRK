@@ -14,12 +14,12 @@ public class TemporaryMoneyStorage {
     private ArrayList<Coin> coinsThrown;
     private double valueOfCoinsThrown;
 
-    public TemporaryMoneyStorage(){
+    protected TemporaryMoneyStorage(){
         this.coinsThrown = new ArrayList<Coin>();
         valueOfCoinsThrown = 0;
     }
 
-    public void addCoinToMoneyStorage(int decision) {
+    protected void addCoinToMoneyStorage(int decision) {
         if(decision == 1) addCoin(Coin.FIVE);
         else if(decision == 2) addCoin(Coin.TWO);
         else if(decision == 3) addCoin(Coin.ONE);
@@ -27,20 +27,20 @@ public class TemporaryMoneyStorage {
         else if(decision == 5) addCoin(Coin.POINTTWENTY);
         else if(decision == 6) addCoin(Coin.POINTTEN);
     }
-    private void addCoin(Coin coin){
+    protected void addCoin(Coin coin){
         coinsThrown.add(coin);
         valueOfCoinsThrown += coin.getValue();
     }
-    public double getValueOfCoinsThrown(){
+    protected double getValueOfCoinsThrown(){
         return valueOfCoinsThrown;
     }
-    public ArrayList<Coin> getCoinsThrown(){
+    protected ArrayList<Coin> getCoinsThrown(){
         return coinsThrown;
     }
-    public int getAmountOfCoinsThrown(){
+    protected int getAmountOfCoinsThrown(){
         return coinsThrown.size();
     }
-    public void clearTemporaryStorage(){
+    protected void clearTemporaryStorage(){
         coinsThrown.clear();
         valueOfCoinsThrown = 0;
     }
