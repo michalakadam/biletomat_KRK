@@ -16,7 +16,7 @@ import java.util.Random;
 public class ChangeStorage {
     private ArrayList<Integer> coins;
     private Bank bank;
-    public ChangeStorage(){
+    protected ChangeStorage(){
         bank = new Bank();
         coins = new ArrayList<Integer>();
         //when ticket machine is initialized coins are randomly distributed
@@ -31,7 +31,7 @@ public class ChangeStorage {
      * @param difference is difference between value of coins inserted and price of selected tickets.
      * @return true if giving change is possible.
      */
-    public boolean isChangeAvailable(double difference){
+    protected boolean isChangeAvailable(double difference){
         //difference is always < 5.0
         double sum;
         for(int two = 0; two <= (getCertainCoinAmount(1) > 2 ? 2 : getCertainCoinAmount(1)); two++){ //handles COIN.TWO
@@ -57,7 +57,10 @@ public class ChangeStorage {
      * @param difference is difference between money paid by the customer and tickets' value - change.
      * @return ArrayList of coins that are then given to the customer as change.
      */
-    public ArrayList<Coin> giveChange(double difference){
+    protected ArrayList<Coin> giveChange(double difference){
+        if (difference < 0) {
+            throw new IllegalArgumentException("Difference cannot be negative!");
+        }
         ArrayList<Coin> change = new ArrayList<Coin>();
         difference = Math.abs(difference);
         //difference will never be greater or equal to five
@@ -92,20 +95,20 @@ public class ChangeStorage {
      * to change storage. If there is no place in change storage for a given coin then it is moved to the bank.
      * @param coin is the specific coin that is added from temporary storage.
      */
-    public void addCoin(Coin coin){
+    protected void addCoin(Coin coin){
         //difference will never be greater or equal to five
         if(coin.equals(Coin.FIVE))
             bank.add(coin);
         else if(coin.equals(Coin.TWO) && checkPlaceForAnotherCoin(1))
-            coins.set(1, coins.get(1) + 1);
+            coins.set(1, (coins.get(1) + 1));
         else if(coin.equals(Coin.ONE) && checkPlaceForAnotherCoin(2))
-            coins.set(2, coins.get(2) + 1);
+            coins.set(2, (coins.get(2) + 1));
         else if(coin.equals(Coin.POINTFIFTY) && checkPlaceForAnotherCoin(3))
-            coins.set(3, coins.get(3) + 1);
+            coins.set(3, (coins.get(3) + 1));
         else if(coin.equals(Coin.POINTTWENTY) && checkPlaceForAnotherCoin(4))
-            coins.set(4, coins.get(4) + 1);
+            coins.set(4, (coins.get(4) + 1));
         else if(coin.equals(Coin.POINTTEN) && checkPlaceForAnotherCoin(5))
-            coins.set(5, coins.get(5) + 1);
+            coins.set(5, (coins.get(5) + 1));
         else
             bank.add(coin);
     }
@@ -114,18 +117,18 @@ public class ChangeStorage {
      * This method is used when coins are taken from change source and given to the customer.
      * @param coin is the specific coin given to the customer as change.
      */
-    private void removeCoin(Coin coin){
+    protected void removeCoin(Coin coin){
         //difference will never be greater or equal to five
         if(coin.equals(Coin.TWO))
-            coins.set(1, coins.get(1) - 1);
+            coins.set(1, (coins.get(1) - 1));
         else if(coin.equals(Coin.ONE))
-            coins.set(2, coins.get(2) - 1);
+            coins.set(2, (coins.get(2) - 1));
         else if(coin.equals(Coin.POINTFIFTY))
-            coins.set(3, coins.get(3) - 1);
+            coins.set(3, (coins.get(3) - 1));
         else if(coin.equals(Coin.POINTTWENTY))
-            coins.set(4, coins.get(4) - 1);
+            coins.set(4, (coins.get(4) - 1));
         else if(coin.equals(Coin.POINTTEN))
-            coins.set(5, coins.get(5) - 1);
+            coins.set(5, (coins.get(5) - 1));
     }
 
     /**
@@ -139,13 +142,13 @@ public class ChangeStorage {
     protected ArrayList<Integer> getChangeAvailable(){
         return coins;
     }
-    private int getCertainCoinAmount(int index){
+    protected int getCertainCoinAmount(int index){
         return coins.get(index);
     }
     protected void setCoinsAmount(int index, int amount){
         coins.set(index, amount);
     }
-    private boolean coinIsAvailable(int index){
+    protected boolean coinIsAvailable(int index){
         return coins.get(index) != 0;
     }
 }
